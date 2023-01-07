@@ -1,0 +1,86 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title pb-5">Add Category Banner</h4>
+        <form action="/admin/add-banner" method="post" enctype="multipart/form-data">
+          
+          <div class="alert alert-danger col-md-6 text-center" id="error" role="alert" hidden >
+  
+          </div>
+          <div class="col">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Enter the title</label>
+                <div class="col-sm-9">
+                  <div class="input-group ">
+                    <input type="text" id=" " name="title" class="form-control" placeholder="Enter the title"   required>
+                     
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Select the Category</label>
+                  <div class="col-sm-9">
+                <select name="category" id=" " class="form-control" required>
+                  
+                    <option>Mens Fashion</option>
+                    <option >Womens Fashion</option>
+                    <option >Kids Fashion</option>
+
+                </select>
+                </div>
+                </div>
+              </div>
+  
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Banner URL</label>
+                <div class="col-sm-9">
+                  <input type=" text" name="url" class="form-control" id="" cols="45" rows="5" required>
+                </div>
+              </div>
+            </div>
+  
+             
+  
+  
+             
+    
+    
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Description(T&C)</label>
+                  <div class="col-sm-9">
+                    <textarea name="description" class="form-control" id="description" cols="45" rows="5" required></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label"> Upload Banner Image </label>
+                  <div class="col-sm-9">
+                    <input id=" " type="file" name="image" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-outline-info col-1">Add</button>
+     
+            </div>
+  
+             
+  
+  
+
+  
+             
+  
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>

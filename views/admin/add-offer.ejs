@@ -1,0 +1,159 @@
+
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title pb-5">Add new Offer</h4>
+        <form action="/admin/add-offer" method="post">
+          
+          <div class="text-danger" >
+         <%=error%>
+          </div>
+          <div class="col">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Offer Name</label>
+                <div class="col-sm-9">
+                  <div class="input-group ">
+                    <input type="text" id="offerName" name="offerName" class="form-control" placeholder="Enter The Offer Name"   required>
+                     
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6  ">
+              
+             
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Offer Type</label>
+                <div class="col-sm-9">
+                  <!-- <div class="input-group"> -->
+                      <div class="form-check" >
+                <input onclick="prohide()" class="form-check-input" type="radio" name="offerType" id="flexRadioDefault2" value="category"  checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Category offer
+                </label>
+            </div>
+    
+            <div class="form-check"  >
+                <input onclick="cathide()" class="form-check-input" type="radio" name="offerType" id="flexRadioDefault1" value="product" >
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Product offer
+                </label>
+            </div>
+                  </div>
+                </div>
+              </div>
+
+               
+
+
+            </div>
+
+            <div class="col-md-6" id="catOffer">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Select Category</label>
+                <div class="col-sm-9">
+              <select name="categoryName" id="categoryName" class="form-control">
+
+              <% categories.forEach(elements=>{%>
+                
+                <option ><%=elements.name%></option>
+                <%})%>
+              
+
+              </select>
+              </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" id="proOffer" hidden="true">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Select Products</label>
+                <div class="col-sm-9">
+              <select name="productName" id="" class="form-control">
+
+                 <% products.forEach(element=>{%> 
+                <option selected><%=element.name%></option>
+                <%})%>
+
+                 
+              </select>
+              </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Start Date</label>
+                <div class="col-sm-9">
+                  <input type="date"  name="startDate" class="form-control" id="startDate" cols="45" rows="5"    >
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6" hidden>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">End Date </label>
+                <div class="col-sm-9">
+                  <input id="endDate" type="date" name="endDate" class="form-control">
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="col-md-6 discPer ">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Discount( % )</label>
+                <div class="col-sm-9">
+                  <input id="discountPercentage" type="number" min="1" name="discount" class="form-control" required>
+                </div>
+              </div>
+            </div>
+             
+    
+    
+                
+              <button type="submit" class="btn btn-outline-info col-1">Add</button>
+     
+   
+             
+  
+  
+
+  
+             
+  
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  <script>
+
+const date1Input = document.getElementById('startDate');
+const date2Input = document.getElementById('endDate');
+
+const now = new Date();
+const year = now.getFullYear();
+const month = now.getMonth() + 1; // January is 0
+const day = now.getDate();
+date1Input.value = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+date2Input.value = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+
+function prohide(){
+
+document.getElementById('proOffer').hidden=true
+document.getElementById('catOffer').hidden=false
+
+}
+
+function cathide(){
+
+    document.getElementById('catOffer').hidden=true
+    document.getElementById('proOffer').hidden=false
+}
+
+  </script>

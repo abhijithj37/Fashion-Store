@@ -1,0 +1,108 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Edit Products</h3>
+            <p></p>
+
+            <br>
+
+            <form class="forms-sample" method="post" action="/admin/edit-products/<%= products._id %> "
+                enctype="multipart/form-data">
+
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="name" name="name"
+                            value="<%= products.name  %>">
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label for="exampleSelectGender">Category</label>
+                        <select class="form-control" name="category" >
+                            <% category.forEach((category)=>{ %>
+                                <option class="text-dark">
+                                    <%-category.name%>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <label for="exampleInputPassword4">Price</label>
+                        <input type="tel" class="form-control" id="exampleInputPassword4" placeholder="Price"
+                            name="price" value="<%= products.price  %>">
+                    </div>
+
+                     
+
+                    <div class="form-group col-md-5">
+                        <label for="exampleInputPassword4">Quantity</label>
+                        <input type="tel" class="form-control" id="exampleInputPassword4" placeholder="quantity"
+                            name="quantity" value="<%= products.quantity %>">
+                    </div>
+
+
+                    <div class="form-group col-md-10">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="5"
+                            name="description"><%= products.description%></textarea>
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <img src="/product-images/<%-products.img[0]%>" alt="" style="width: 75px; height: 75px;"
+                            id="imgView1">
+                        <label for="image">Image</label>
+                        <input type="file" name="img0" class="form-control" onchange="viewImage1(event)" >
+                    </div>
+
+                    
+
+                    <div class="form-group col-md-5">
+                        <img src="/product-images/<%-products.img[1]%>"  alt="" style="width: 75px; height: 75px;"
+                            id="imgView2">
+                        <label for="image">Image</label>
+                        <input type="file" name="img1" class="form-control" onchange="viewImage2(event)"   >
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <img src="/product-images/<%-products.img[2]%>"  alt="" style="width: 75px; height: 75px;"
+                            id="imgView3">
+                        <label for="image">Image</label>
+                        <input type="file" name="img2" class="form-control" onchange="viewImage3(event)"   >
+                    </div>
+
+                    <div class="form-group col-md-5">
+                        <img src="/product-images/<%-products.img[3]%>" alt="" style="width: 75px; height: 75px;"
+                            id="imgView4">
+                        <label for="image">Image</label>
+                        <input type="file" name="img3" class="form-control" onchange="viewImage4(event)"    >
+                    </div>
+
+                     
+
+
+                    <button type="submit" class="btn btn-primary ml-3 mr-2 col-md-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script defer src="https://cdn.crop.guide/loader/l.js?c=FKHNFL"></script>
+
+<script>
+    function viewImage1(event) {
+      document.getElementById('imgView1').src = URL.createObjectURL(event.target.files[0])
+      console.log(event)
+    }
+    function viewImage2(event) {
+      document.getElementById('imgView2').src = URL.createObjectURL(event.target.files[0])
+    }
+    function viewImage3(event) {
+      document.getElementById('imgView3').src = URL.createObjectURL(event.target.files[0])
+    }
+    function viewImage4(event) {
+      document.getElementById('imgView4').src = URL.createObjectURL(event.target.files[0])
+    }
+  </script>

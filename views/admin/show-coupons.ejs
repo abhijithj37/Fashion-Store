@@ -1,0 +1,117 @@
+
+ 
+   <section>
+
+     
+
+   <div class="col-12 ml-2">
+    <a class= "btn btn-primary btn-sm mt-5 mb-2" href="/admin/add-coupon">Add New Coupon</a>
+     <div class="card  mt-2">
+       <div class="card-header pb-0">
+         <h6>Coupon Management</h6>
+       </div>
+       <div class="card-body px-0 pt-0 pb-2">
+         <div class="table-responsive p-0">
+           <table class="table align-items-center mb-0">
+             <thead>
+               <tr>
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Coupon Code</th>
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Discount %</th>
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Min Purchase ₹</th>
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Max Discount Value</th>
+
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Expiry</th>
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Discription</th>
+
+                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Action</th>
+               </tr>
+             </thead>
+             <tbody>
+               <% coupons.forEach((element,index)=>{ %>
+               <tr>
+                 <td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                   <%- index+1 %>
+                 </td>
+                 <td>
+                   <div class="d-flex px-2 py-1">
+                     <div class="d-flex flex-column justify-content-center">
+                       <h6 class="mb-0 text-sm"><%- element.couponCode %></h6>
+                      </div>
+                   </div>
+                 </td>
+                 <td>
+                   <h6 class="mb-0 text-sm"><%= element.discountPercentage%> %</h6>
+                 </td>
+                 <td>
+                    <h6 class="mb-0 text-sm"><%= element.minPurchase%></h6>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-sm"><%= element.maxDiscount%></h6>
+                  </td>
+                  
+                 <td>
+                    <% if(element.expiry<new Date()){%>  
+                   <p class="text-xs font-weight-bold mb-0">Coupon Expired</p>
+                   <%}else{%>
+                    <p class="text-xs font-weight-bold mb-0"><%= moment(element.expiry).format('Do MMMM, YYYY')%></p>
+                    <%}%>
+                 </td>
+                 <td>
+                    
+                    <p class="text-xs font-weight-bold mb-0"> <%=element.discription%></p>
+                  </td>
+                 <td class="align-middle text-center text-sm">
+                   <div class="ms-auto text-end">
+                     <a class="btn btn-link text-danger text-gradient px-3 mb-0"   onclick="removeCoupon('<%- element._id%>')">Remove</a>
+                   </div>
+                 </td>
+               </tr>
+               <%})%>
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
+   </div>
+
+ </section>
+
+ <script>
+    function removeCoupon(Id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: '/admin/remove-coupon/'+Id,
+          method: 'delete',
+          success: (response) => {
+            if (response.status) {
+              location.reload()
+            } else {
+              Swal.fire(
+                'ERR!',
+                'oops Something went wrong.',
+                'error'
+              )
+            }
+          }
+        })
+        Swal.fire(
+          'removed!',
+          'coupon has been removed',
+          'success'
+        )
+      }
+    })
+  }
+
+    
+ </script>

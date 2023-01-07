@@ -1,0 +1,111 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title pb-5">Add Banner</h4>
+        <form action="/admin/edit-banner/<%=banner._id%>" method="post" enctype="multipart/form-data">
+          
+          <div class="alert alert-danger col-md-6 text-center" id="error" role="alert" hidden >
+  
+          </div>
+          <div class="col">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Enter the title</label>
+                <div class="col-sm-9">
+                  <div class="input-group ">
+                    <input type="text" id=" " value="<%=banner.title%>" name="title" class="form-control" placeholder="Enter the title"   required>
+                     
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6" >
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Select the Category</label>
+                  <div class="col-sm-9">
+                <select name="category" id=" "  class="form-control" required>
+                    <option <%=banner.category=='Main banner'? "selected" : "" %>>Main Banner</option>
+
+                    <option>Mens Fashion</option>
+                    <option >Womens Fashion</option>
+                    <option >Kids Fashion</option>
+
+
+
+
+
+
+
+  
+                </select>
+                </div>
+                </div>
+              </div>
+  
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Banner URL</label>
+                <div class="col-sm-9">
+                  <input type=" text" name="url" class="form-control" id="" cols="45" rows="5" value="<%=banner.url%>" required>
+                </div>
+              </div>
+            </div>
+  
+             
+  
+  
+             
+    
+    
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Description(T&C)</label>
+                  <div class="col-sm-9">
+                    <textarea name="description" value="" class="form-control" id="description" cols="45" rows="5"  required><%=banner.description%></textarea>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group col-md-6">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label"> Banner Image </label>
+                    <div class="col-sm-9">
+                        <img src="/product-images/<%=banner.image%>" alt="" style="width: 130px; height: 75px;" id="bannerImg">
+                    </div>
+                  </div> 
+                  
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label"> Upload Banner Image </label>
+                  <div class="col-sm-9">
+                    <input id="" type="file" name="image" class="form-control" onchange="viewBannerImg(event)">
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-outline-info col-1">Add</button>
+     
+            </div>
+  
+             
+  
+  
+
+  
+             
+  
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  <script>
+    function viewBannerImg(event) {
+      document.getElementById('bannerImg').src = URL.createObjectURL(event.target.files[0])
+      console.log(event)
+    }
+  </script>

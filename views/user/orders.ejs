@@ -1,0 +1,204 @@
+ 
+    
+    
+  <section class="h-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+         
+        <div class="col-lg-10 col-xl-8">
+             
+          <div class="card" style="border-radius: 10px;">
+            <div class="card-header px-4 py-5">
+              <h5 class="text-muted mb-0">your Orders <span style="color: #a8729a;"></span></h5>
+            </div>
+            <% orders.forEach((element,index)=>{%> 
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="lead fw-normal mb-0" style="color: #a8729a;"> </p>
+                <p class="small text-muted mb-0">ORDER ID :<%-element.orders._id%></p>
+              </div>
+              <div class="card shadow-0 border mb-4">
+                <div class="card-body">
+                    <% for(let i=0;i<element.orders?.productDetails.length;i++){ %>    
+                <div class="row">
+                     
+                    <div class="col-md-2">
+                       <img src="/product-images/<%= element?.orders?.productDetails[i].product.img[0]%>"
+                        class="img-fluid" alt=""> 
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0"><%-element.orders?.productDetails[i] .product?.name%></p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">White</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">Category: <%-element.orders?.productDetails[i] .product?.category%></p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">Qty: <%-element.orders?.productDetails[i] .quantity%></p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">₹<%-element.orders?.productDetails[i] .product?.price*element.orders?.productDetails[i] .quantity%></p>
+                    </div>
+                       <% if (element.orders.orderStatus=='Delivered'||element.orders.orderStatus=='Returned'){%> 
+
+                        <% if(element.orders.productDetails[i].productStatus=='Returned'){%> 
+                          <button class="btn btn-info mt-2"  >returned</button>
+                         <%}else if(element.orders.productDetails[i].productStatus=='returnCancelled'){%>
+                            <p class="text-danger text-center">Sorry You Can't Return this Product !</p>
+                            <%}else if(element.orders.productDetails[i].productStatus=='returnRequest'){%>
+                              <p class="text-info text-center"> Your Request for returning this product is processing</p>
+
+                            
+                      <%}else{%> 
+                        <button class="btn btn-outline-info mt-2" onclick="requestTOReturn('<%=element.orders.productDetails[i].product._id%>','<%=element.orders._id%>')">return</button>
+                         
+                        <%}%> 
+                    <%}%>
+                </div>
+                <%}%>     
+                   <div class="row d-flex align-items-center">
+                      
+                
+                </div> 
+ 
+              </div>
+              
+            </div>
+          </div> 
+           
+          <div class="d-flex justify-content-between pt-2">
+            <p class="text-muted mb-0"><span class="fw-bold me-4">Order-Status:</span><%=element.orders.orderStatus%></p>
+          </div>
+          
+             <%if (element.orders.orderStatus!="Delivered" && element.orders.paymentStatus!="PAID"){%> 
+          <div class="d-flex justify-content-between pt-2">
+            <%if (element.orders.status==true) {%>  
+           <a class="fw-bold mb-0 btn btn-warning text-white" onclick="cancelOrder('<%=element?.orders._id%>')">Cancel-Order</a>
+             
+             
+            <%}else{ %>
+                <a class="fw-bold mb-0 btn btn-danger text-white" >Cancelled</a>
+             
+             
+            <%}%>
+          </div>
+          <%}%>  
+          
+              <div class="d-flex justify-content-between pt-2">
+                <p class="fw-bold mb-0">Order Details</p>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span>₹ <%=element.orders.totalPrice%></p>
+              </div>
+  
+              <div class="d-flex justify-content-between pt-2">
+                <p class="text-muted mb-0">Shipping-Address:<br>
+                                                <span style="font-weight: 500;">
+                                                  <%= element?.orders?.fname %>
+                                                </span> 
+                                                <%- element?.orders?.shippingAddress?.mobile %><br>
+                                                <%- element?.orders?.shippingAddress?.email %><br>
+                                                <%- element?.orders?.shippingAddress?.street %>, <%- element?.orders?.shippingAddress?.city %>
+                                                <%- element?.orders?.shippingAddress?.state %> <br>
+                                                pin-code: <%- element?.orders?.shippingAddress?.pincode %><br>
+                                                </p>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Payment_method :</span><%=element.orders.paymentMethod%> </p>
+               </div>
+  
+              <div class="d-flex justify-content-between">
+                <p class="text-muted mb-0"> Date: <%= moment(element.orders?.createdAt).format('Do MMMM, YYYY')  %></p><br><br>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">GST</span> 123</p>
+              </div>
+              <p class="text-muted mb-0"><span class="fw-bold me-4">Payment_status :</span><%=element.orders.paymentStatus%> </p>
+              <div class="d-flex justify-content-between mb-5">
+                <p class="text-muted mb-0"></p>
+                <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p> -->
+              </div>
+              <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+              <%})%>
+            </div>
+            
+          </div>
+           
+        </div>
+           
+      </div>
+    </div>
+  </section>
+   <script>
+     function cancelOrder(orderId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3cc75c',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Cancel The Order!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: '/cancel-order',
+          data: {
+            
+            orderId: orderId
+          },
+          method: 'PUT',
+          success: (response) => {
+            if (response.status) {
+              location.reload()
+            }
+          }
+        })
+        Swal.fire(
+          'Canceled!',
+          'Order is Cancelled',
+          'success'
+        )
+      }
+    })
+  }
+
+  function requestTOReturn(prodId,orderId){
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3cc75c',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes,Return The Product!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+
+    $.ajax({
+      url:'/return-request',
+      method:'put',
+      data:{
+        prodId:prodId,
+        orderId:orderId,
+       },
+      success:(response)=>{
+        if (response.status) {
+            
+          location.reload()
+
+          
+        }
+      }
+    })
+    Swal.fire(
+          'Confirmed!',
+          'Product requested to return',
+          'success'
+        )
+
+      }
+    })
+
+  }
+
+   </script>
+   

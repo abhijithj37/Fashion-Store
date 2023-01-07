@@ -1,0 +1,139 @@
+
+
+<% if(locals.nav){ %>
+    <header class="header header-7">
+
+    </header><!-- End .header -->
+     
+    <% } else{ %>
+
+
+  <header class="header header-8">
+    <div class="header-top">
+    <div class="container">
+        <div class="header-left">
+            <div class="header-dropdown">
+                <a href="#">USD</a>
+                <div class="header-menu">
+                    <ul>
+                        <li><a href="#">Eur</a></li>
+                        <li><a href="#">Usd</a></li>
+                    </ul>
+                </div><!-- End .header-menu -->
+            </div><!-- End .header-dropdown -->
+
+            <div class="header-dropdown">
+                <a href="#">Eng</a>
+                <div class="header-menu">
+                    <ul>
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">French</a></li>
+                        <li><a href="#">Spanish</a></li>
+                    </ul>
+                </div><!-- End .header-menu -->
+            </div><!-- End .header-dropdown -->
+        </div><!-- End .header-left -->
+
+        <div class="header-right">
+            <ul class="top-menu">
+                <li>
+                    <a href="#">Links</a>
+                    <ul>
+                        <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
+                        <li><a href="wishlist.html"><i class="icon-heart-o"></i>My Wishlist <span>(3)</span></a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <% if(locals.user){ %>
+                        <li><a href="/logout" onclick="return confirm('Are you sure want to log out');"><i class="icon-user" ></i>Logout</a></li>
+                         <li><a href><i class="icon-user"></i><%=(user.name)%></a></li>
+                        <% } else{ %>
+
+                        <li><a href="/login"><i class="icon-user"></i>Login</a></li>
+                        <% } %>
+                    </ul>
+                </li>
+            </ul><!-- End .top-menu -->
+        </div><!-- End .header-right -->
+    </div><!-- End .container -->
+</div><!-- End .header-top -->
+
+<div class="header-middle sticky-header">
+    <div class="container">
+        <div class="header-left">
+            <button class="mobile-menu-toggler">
+                <span class="sr-only">Toggle mobile menu</span>
+                <i class="icon-bars"></i>
+            </button>
+
+            <a href="/" class="logo">
+                <img src="/images/demos/demo-10/logo.png" alt="Molla Logo" width="105" height="25">
+            </a>
+        
+
+    
+            <nav class="main-nav">
+                <ul class="menu sf-arrows">
+                    <li class="megamenu-container active">
+                        <a href="/" class="">Home</a>
+                           
+                    </li>
+                    <li>
+                        <a href="/shop" class=" ">Shop</a>
+
+                         
+                    </li>
+                    <li>
+                        <a href="/shop" class="">Product</a>
+
+                         
+                    </li>
+                    <li>
+                        <a href="/accounts" class="">Accounts</a>
+
+                        <!-- <ul>
+                            <li>
+                                <a href="" class="">About</a>
+
+                                 
+                            </li>
+                            <li>
+                                <a href="contact.html" class="">Contact</a>
+
+                                 
+                            </li>
+                            
+                        </ul> -->
+                    </li>
+                     
+                    <li>
+                        <a href="/orders" class="">Orders</a>
+
+                        
+                    </li>
+                </ul><!-- End .menu -->
+            </nav><!-- End .main-nav -->
+           </div>
+           <div class="header-right">
+            <div class="header-search">
+                <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                <form action="#" method="get">
+                    <div class="header-search-wrapper">
+                        <label for="q" class="sr-only">Search</label>
+                        <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                    </div><!-- End .header-search-wrapper -->
+                </form>
+            </div><!-- End .header-search -->
+
+            <div class="dropdown cart-dropdown">
+                <a href="/cart" class="dropdown-toggle" role="button">
+                  <i class="icon-shopping-cart"></i>
+                  <span id="cart-count" class="cart-count">
+                    <%= locals.cartCount %>
+                    </span>
+                    </a>
+            </div><!-- End .cart-dropdown -->
+        </div><!-- End .header-right -->
+    </div><!-- End .container -->
+</div><!-- End .header-middle -->
+</header><!-- End .header -->
+ <% } %>

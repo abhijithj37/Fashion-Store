@@ -1,0 +1,509 @@
+<main class="main">
+    <div class="page-header text-center" style="background-image: url(' /images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Checkout<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                <!-- <div class="checkout-discount">
+                    <form action="#">
+                        <input type="text" class="form-control" required id="checkout-discount-input">
+                        <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
+                    </form>
+                </div>End .checkout-discount -->
+
+
+
+                <form id="check-out-form">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <!-- <h2 class="checkout-title">Billing Details</h2> 
+                                <div class="row">
+
+
+
+
+                                    <div class="col-sm-6">
+                                        <label>First Name *</label>
+                                        <input type="text" class="form-control" name="fname" required>
+                                    </div> 
+
+
+                                    <div class="col-sm-6">
+                                        <label>Last Name *</label>
+                                        <input type="text" class="form-control" name="lname" required>
+                                    </div> 
+
+                                </div> 
+                                <label>Company Name (Optional)</label>
+                                <input type="text" class="form-control">
+
+                                 
+
+                                <label> Address *</label>
+                                <input type="text" class="form-control" placeholder="House number,Flat,Building" name="houseno" required>
+                                <input type="text" class="form-control" placeholder="street, area, locality etc ..." name="street" required>
+
+                                <div class="row">
+
+
+
+                                    <div class="col-sm-6">
+                                        <label>Town / City *</label>
+                                        <input type="text" class="form-control" name="city" required>
+                                    </div> 
+
+                                    <div class="col-sm-6">
+                                        <label>State *</label>
+                                        <input type="text" class="form-control" name="state" required>
+                                    </div> 
+
+
+
+                                </div> 
+
+                                <div class="row">
+
+
+                                    <div class="col-sm-6">
+                                        <label>Pincode *</label>
+                                        <input type="text" class="form-control" name="pincode" required>
+                                    </div> 
+
+                                    <div class="col-sm-6">
+                                        <label>Phone *</label>
+                                        <input type="tel" class="form-control" name="mobile" required>
+                                    </div> 
+
+
+
+                                </div> 
+
+                                <label>Email address *</label>
+                                <input type="email" class="form-control" name="email" required>
+                                <input type="text" name="total" value="<%-subTotal%>" hidden> -->
+
+                                 
+
+                                <% addresses.forEach(elements=>{ %>
+                                    <div class="col-lg-11">
+                                      <div class="card card-dashboard">
+                                        <div class="card-body">
+                                            <input type="radio" name="addrId" value="<%=elements.addresses._id %>" id="<%=elements.addresses._id %>"  required>
+                                             
+                                          <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
+                                          <p>
+                                            <%- elements.addresses.name %><br>
+                                            
+                                            <%- elements.addresses.email %><br>
+                                            <%- elements.addresses.mobile %><br>
+                                            <%-elements.addresses.houseNo%>,<br>
+                                            <%- elements.addresses.street %>, <%- elements.addresses.city %>
+                                            <%- elements.addresses.state %> <br> 
+                                            <%- elements.addresses.pincode %><br>
+                                            <!-- <button type="button" onclick="findAddress('<%-elements.addresses._id%>')" class="btn  btn-outline-primary " data-toggle="modal" data-target="#myModal">
+                                              Edit
+                                            </button> -->
+                                            <!-- <button type="button" onclick="deleteAddress('<%-elements.addresses._id%>')" class="btn btn-outline-danger ">
+                                              delete
+                                            </button> -->
+                                          </p>
+                                        </div><!-- End .card-body -->
+                                      </div><!-- End .card-dashboard -->
+                                    </div><!-- End .col-lg-6 -->
+                                    <% }) %>
+
+
+
+
+
+                                
+                        </div><!-- End .col-lg-9 -->
+
+
+                        <% if(addresses!=0){ %>
+
+                           
+                        <aside class="col-lg-3">
+                            <div class="summary">
+                                <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <%cartItems.forEach((element)=>{%>
+                                             
+                                        <tr>
+                                            <td><a href="#"><%-element.product.name%></a>
+                                              <% if(element.product.discount!=0){%> 
+                                              <p>product Discount:<%=element.product.discount%>₹</p>
+                                              <%}%>
+                                            </td>
+                                            <td>₹<%-element.product.price*element.quantity%></td>
+                                            
+                                        </tr>
+                                        <%})%>
+                                        <!-- <tr>
+                                            <td><a href="#">Blue utility pinafore denimdress</a></td>
+                                            <td>$76,00</td>
+                                        </tr> -->
+                                        <tr class="summary-subtotal">
+                                            <td>Subtotal:</td>
+                                            <td >₹<%-subTotal%></td>
+                                        </tr><!-- End .summary-subtotal -->
+                                        <tr>
+                                            <td>Shipping:</td>
+                                            <td>Free shipping</td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <div class="checkout-discount">
+                                              <form>
+                                              <div class="cart-discount">
+                                                  <div class="input-group">
+                                                    <input type="text" class="form-control " autocomplete="off"   id="code" placeholder="coupon code">
+                                                    <div class="input-group-append">
+                                                      <button class="btn btn-sm btn-outline-primary" style="width:3em; height: 3em;" type="button" onclick="redeemCoupon()"><i class="icon-long-arrow-right"></i></button>
+                                                    </div><!-- .End .input-group-append -->
+                                                  </div><!-- End .input-group -->
+                                                </form>
+                                                <p id="couponErr" class="text-danger"></p>
+                                                <p id="couponSuccess" class="text-success"></p>
+                                              </div><!-- End .cart-discount -->
+                                            </div><!-- End .checkout-discount -->
+                                          </td>
+                                        </tr>
+                                        <tr class="summary-total">
+                                          <td>FinalPrice:</td> 
+                                          <td id="discountTotal">₹<%-subTotal-discountAmount%></td> 
+
+                                        </tr><!-- End .summary-total -->
+                                        
+                                        <tr class="summary-total">
+                                          <td>Coupon Discount:</td> 
+                                          <td id="discountAmount">₹<%=discountAmount%></td> 
+
+                                        </tr><!-- End .summary-total -->
+                                         
+                                    </tbody>
+                                </table><!-- End .table table-summary -->
+
+                                
+                                <h2 class="card-title my-2">
+                                    <input type="radio" name="payment" data-toggle="collapse" href="#collapse-3"  aria-expanded="false" aria-controls="collapse-3" value="COD" checked>
+                                    <label for="Cash on Delivery">Cash On Delivery</label>
+                                  </h2>
+
+
+
+                                  <h2 class="card-title my-2">
+                                    <input type="radio" name="payment" data-toggle="collapse" href="#collapse-3"  aria-expanded="false" aria-controls="collapse-3" value="razorpay" checked>
+                                    <label for="razorpay">Razorpay</label>
+                                  </h2>
+
+                                  
+
+                                  <h2 class="card-title my-2 mb-3">
+                                    <input type="radio" name="payment" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3" value="paypal" checked>
+                                    <label for="paypal">Paypal</label>
+                                    <div id="paypal-button-container"></div>
+                                  </h2>
+
+                                     
+
+                                    
+                            
+
+                                <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                    <span class="btn-text">Place Order</span>
+                                    <span class="btn-hover-text">Proceed to Checkout</span>
+                                </button>
+                            </div><!-- End .summary -->
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                    <% } %>
+                </form>
+            </div><!-- End .container -->
+        </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+ 
+<script>
+$("#check-out-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+        url:'/place-order',
+        method:'post',
+        data:$("#check-out-form").serialize(),
+        success:(response)=>{
+             if(response.codStatus){
+                location.replace("/success")
+             }else if(response.paypal==true){
+                paypalPayment(response.total)
+             }else if(response.status==false){
+              Swal.fire({
+            icon: 'error',
+            title:response.productName,
+            text: 'Sorry The Product Mentioned Above Are Out Of Stock!',
+            footer: '<a href="/cart">Goto Cart</a>'
+          })
+
+
+             }
+              else{
+                razorPay(response)
+             }
+
+             
+        }
+
+
+    })
+})
+
+
+
+function razorPay(order) {
+    console.log(order);
+    var options = {
+      "key": "rzp_test_tl2rMQhmHHNm0l", // Enter the Key ID generated from the Dashboard
+      "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Mens Fashion",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function(response) {
+        //success todo toast
+        verifyPayment(response, order)
+      },
+      "prefill": {
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open()
+    rzp1.on('payment.failed', function(response) {
+
+
+ 
+//order Failed
+ 
+
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+       
+    });
+  }
+
+
+ 
+  function verifyPayment(payment, order) {
+ 
+    $.ajax({
+      url: '/verify-payment',
+      data: {
+        payment,
+        order
+      },
+      method: 'POST',
+      success: (response) => {
+        if (response.status)
+          location.replace("/success");
+        else {
+          //order Failed
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href="/">Goto home page</a>'
+          })
+        }
+      }
+    })
+  }
+
+  // function paypalPayment(total) {
+  //   paypal
+  //     .Buttons({
+  //       createOrder: function() {
+  //         return fetch("/create-order", {
+  //             method: "POST",
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //             },
+  //             body: JSON.stringify({
+  //               total: total,
+  //               items: [{
+  //                 id: 1,
+  //               }]
+  //             }),
+  //           })
+  //           .then(res => {
+  //             if (res.ok) 
+  //             return res.json()
+  //             return res.json()
+  //             .then(json => Promise.reject(json))
+  //           })
+  //           .then(({
+  //             id
+  //           }) => {
+  //             return id
+  //           })
+  //           .catch(e => {
+  //             console.error(e.error)
+  //           })
+  //       },
+  //       onApprove:function(data,actions) {
+
+  //         return actions.order.capture()
+  //         .then(() => {
+            
+  //           $.ajax({
+  //             url: '/paypal-approve',
+  //             method: 'get',
+  //             success: (response) => {
+  //               if (response.status) {
+  //                 location.replace('/success')
+  //               } else {
+  //                 Swal.fire({
+  //                   icon: 'error',
+  //                   title: 'Oops...',
+  //                   text: 'Something went wrong!',
+  //                   footer: '<a href="/">Goto home page</a>'
+  //                 })
+  //               }
+  //             }
+  //           })
+  //         })
+  //       },
+  //     })
+  //     .render("#paypal")
+  // }
+   
+function paypalPayment(total){
+
+
+    paypal.Buttons({
+      // Sets up the transaction when a payment button is clicked
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value:total // Can also reference a variable or function
+            }
+          }]
+        });
+      },
+      // Finalize the transaction after payer approval
+      onApprove: (data, actions) => {
+        return actions.order.capture().then((result) => {
+
+          $.ajax({
+              url: '/paypal-approve',
+              method: 'get',
+              success: (response) => {
+                if (response.status) {
+                  location.replace('/success')
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href="/">Goto home page</a>'
+                  })
+                }
+              }
+            })
+          
+        }).catch((err) => {
+          
+        });
+      }
+    }).render('#paypal-button-container');
+  
+}
+
+function redeemCoupon(){
+  console.log("haiiiii");
+ let couponErr=document.getElementById('couponErr')
+ let couponSuccess=document.getElementById('couponSuccess')
+ couponErr.innerText=""
+ 
+ let code=document.getElementById('code').value.trim()
+ let totalAmount=document.getElementById('discountTotal')
+ let discountAmout=document.getElementById('discountAmount')
+ let flag=1
+ if(code==""){
+  couponErr.innerText="Enter Your Coupon Code"
+  flag=2
+ }
+ if(flag==1){
+   $.ajax({
+    url:'/redeem-coupon',
+    method:'post',
+    data:{
+      couponCode:code
+    },
+    success:(response)=>{
+      console.log('success',response)
+
+      if(response.status){
+        console.log('jjj',response.status);
+        totalAmount.innerText=`₹${response.total-response.discountAmount}`
+        discountAmout.innerText=`₹${response.discountAmount}`
+         console.log('saved',response)
+        couponSuccess.innerText=`You have Saved ${response.discountAmount}Rs`
+
+        
+
+      }else{
+        couponErr.innerText=response.reason
+        console.log('else',response)
+
+      }
+    }
+
+   })
+   
+
+
+
+ }
+
+
+}
+
+
+
+
+
+</script>

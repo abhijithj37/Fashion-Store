@@ -1,0 +1,114 @@
+<div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title pb-5">Add new coupon</h4>
+        <form id="coupon-form">
+          
+          <div class="alert alert-danger col-md-6 text-center" id="error" role="alert" hidden >
+  
+          </div>
+          <div class="col">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Coupon Code</label>
+                <div class="col-sm-9">
+                  <div class="input-group ">
+                    <input type="text" id="couponName" name="code" class="form-control" placeholder="Enter Coupon Code"   required>
+                     
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">validity</label>
+                <div class="col-sm-9">
+                  <input type="date" name="expiry" class="form-control" id="validity" cols="45" rows="5" required>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Min Purchase </label>
+                <div class="col-sm-9">
+                  <input id="minAmount" type="number" name="minAmount" class="form-control" required>
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="col-md-6 discPer ">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Discount( % )</label>
+                <div class="col-sm-9">
+                  <input id="discountPercentage" type="number" name="discount" class="form-control" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" id="maxdiscountfield">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Max Discount(Rs)</label>
+                  <div class="col-sm-9">
+                    <input id="maxDiscountValue" type="number" name="maxDiscount" class="form-control" />
+                  </div>
+                </div>
+              </div>
+    
+    
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Description(T&C)</label>
+                  <div class="col-sm-9">
+                    <textarea name="discription" class="form-control" id="description" cols="45" rows="5" required></textarea>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-outline-info col-1">Add</button>
+     
+            </div>
+  
+             
+  
+  
+
+  
+             
+  
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+   
+  <script>
+    let error=document.getElementById('error')
+    error.innerText=""
+
+     $("#coupon-form").submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:'/admin/add-coupon',
+            method:'post',
+            data:$("#coupon-form").serialize(),
+            success:(response)=>{
+                if(response.status){
+                location.href='/admin/coupons'
+                }else{
+                    error.removeAttribute('hidden')
+                    error.innerText=response.reason
+                }
+            }
+        })
+     })
+
+
+   
+
+
+  
+
+  
+</script>

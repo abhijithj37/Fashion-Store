@@ -1,0 +1,1326 @@
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">My Account<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="/accounts">My Account</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                <div class="row">
+                    <aside class="col-md-4 col-lg-3">
+                        <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link  " id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="false">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Coupons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Wallet</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Account Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Address</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sign Out</a>
+                            </li>
+                        </ul>
+                    </aside><!-- End .col-lg-3 -->
+
+                    <div class="col-md-8 col-lg-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade  " id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                                <p>Hello <span class="font-weight-normal text-dark">User</span> (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>) 
+                                <br>
+                                From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
+                            </div><!-- .End .tab-pane -->
+
+                            <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                              <table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                  <tr hidden>
+                                    <th>#</th>
+                                    <th>Coupon code</th>
+                                    <th>Status</th>
+                                    <th>Expiry</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% coupons.forEach((elements,index)=>{ %>
+                                  <tr>
+                                     
+                                    <td>
+                                      <div class="d-flex align-items-center">
+                                        <div class="ms-3">
+                                          <p class="fw-bold text-success mb-1"><%= elements.couponCode %> </p>
+                                         </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <span class="badge badge-primary rounded-pill d-inline"><%=elements.discountPercentage%>%off</span>
+                                    </td>
+                                    <td>
+                                      <p class="fw-bold mb-1">For Minimum Purchase Of ₹<%=elements.minPurchase%></p>
+                                    </td>
+                                    
+                                    
+                                    
+                                    <td>
+                                      <% if(elements.expiry<new Date()){%> 
+                                        <p class="fw-bold mb-1">Coupon Expired</p>
+
+                                       <%}else{%> 
+                                       <p class="fw-bold mb-1">Expiry:<%= moment(elements.expiry).format('Do MMMM, YYYY')%></p>
+                                       <%}%>
+                                    </td>
+
+                                    
+                                  </tr>
+                                  <% }) %>
+                                </tbody>
+                              </table>
+                            </div><!-- .End .tab-pane -->
+
+
+
+
+                            <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
+                              <div class="card mx-auto" style="width: 40rem;">
+                                <div class="card-body">
+                                  <h4 class="card-text">Wallet balance : Rs.<%=user.wallet %> </h4>
+                                </div>
+                              </div>
+                            </div><!-- .End .tab-pane -->
+
+
+
+
+
+                            <div class="tab-pane fade show active" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+
+                              <!-- user profile -->
+     
+                              <section style="background-color: #eee;">
+                                <div class="container ">
+                                   
+                              
+                                  <div class="row">
+                                    <div class="col-lg-4">
+                                      <div class="card mb-4">
+                                        <div class="card-body text-center">
+                                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                            class="rounded-circle img-fluid" style="width: 150px;">
+                                          <h5 class="my-3"><%=user.name%></h5>
+                                          <p class="text-muted mb-1">Full Stack Developer</p>
+                                          <p class="text-muted mb-4"><%=user.email%></p>
+                                          <div class="d-flex justify-content-center mb-2">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#editaccount">Edit</button>
+                                            <button type="button" class="btn btn-outline-primary ms-1" data-toggle="modal"  data-target="#editpassword">Manage Password</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                     </div>
+
+                                     
+                                    <div class="col-lg-6">
+                                      <div class="card mb-4">
+                                        <div class="card-body">
+                                          <div class="row">
+                                            <div class="col-sm-3">
+                                              <p class="mb-0">Full Name</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                              <p class="text-muted mb-0"><%=user.name%></p>
+                                            </div>
+                                          </div>
+                                          <hr>
+                                          <div class="row">
+                                            <div class="col-sm-3">
+                                              <p class="mb-0">Email</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                              <p class="text-muted mb-0"><%=user.email%></p>
+                                            </div>
+                                          </div>
+                                          <hr>
+                                          <div class="row">
+                                            <div class="col-sm-3">
+                                              <p class="mb-0">Phone</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                              <p class="text-muted mb-0">(097) 234-5678</p>
+                                            </div>
+                                          </div>
+                                          <hr>
+                                          <div class="row">
+                                            <div class="col-sm-3">
+                                              <p class="mb-0">Mobile</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                              <p class="text-muted mb-0"> <%=user.mobile%></p>
+                                            </div>
+                                          </div>
+                                          <hr>
+                                          <div class="row">
+                                            <div class="col-sm-3">
+                                              <p class="mb-0">Address</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                              <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                       
+                                    </div>
+                                  </div>
+                                </div>
+                              </section>
+
+                              <!-- userprofileEnd -->
+ 
+                                <div class="row">
+                                    <div class="col-12">
+                                      <div class="card card-dashboard">
+                                        <div class="card-body">
+                                          <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
+                                          <p>Add New Addresses Here.<br>
+                                          <p>The following addresses will be used on the checkout page by default.</p>
+                                          <button type="button" class="btn btn-outline-primary btn-sm icon-edit" data-toggle="modal" data-target="#addAddress">Add Adresses</button>
+                                          </p>
+                                        </div><!-- End .card-body -->
+                                      </div><!-- End .card-dashboard -->
+                                    </div><!-- End .col-lg-6 -->
+
+
+                                     
+
+
+                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                     
+                                     <% addresses.forEach(elements=>{ %>
+                                        <div class="col-lg-6">
+                                          <div class="card card-dashboard">
+                                            <div class="card-body">
+                                              <h3 class="card-title">Billing Address</h3><!-- End .card-title -->
+                                              <p>
+                                                <%- elements.addresses.name %><br>
+                                                
+                                                <%- elements.addresses.email %><br>
+                                                <%- elements.addresses.mobile %><br>
+                                                <%-elements.addresses.houseNo%>,<br>
+                                                <%- elements.addresses.street %>, <%- elements.addresses.city %>
+                                                <%- elements.addresses.state %> <br>
+                                                <%- elements.addresses.pincode %><br>
+                                                <button type="button" onclick="findAddress('<%-elements.addresses._id%>')" class="btn  btn-outline-primary " data-toggle="modal" data-target="#edit">
+                                                  Edit
+                                                </button>
+                                                <button type="button" onclick="deleteAddress('<%-elements.addresses._id%>')" class="btn btn-outline-danger ">
+                                                  delete
+                                                </button>
+                                              </p>
+                                            </div><!-- End .card-body -->
+                                          </div><!-- End .card-dashboard -->
+                                        </div><!-- End .col-lg-6 -->
+
+                                         
+
+
+
+                                        <% }) %>
+
+
+
+
+
+
+
+
+
+
+                                     
+                                </div><!-- End .row -->
+                            </div><!-- .End .tab-pane -->
+
+                            
+                              <!-- edit address  model -->
+                              <div class="modal fade" id="edit"  role="dialog">
+                                <div class="modal-dialog">
+            
+                                  <!--  addd new addrss Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Edit Address</h4>
+                                      <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                    </div>
+                                    <div class="modal-body">
+            
+                                      <div class="col-lg-12 my-5">
+                                        <div class="row ">
+                                          <div class="col-12">
+                                            <div class="d-flex">
+                                              <label class="w-40"> Name *</label>
+                                              <p class="text-danger d-flex justify-content-end w-60">
+                                              </p>
+                                            </div>
+                                            <input type="text" class="form-control" id="name" name=" name"  >
+                                          </div><!-- End .col-12 -->
+            
+                                           
+                                        </div><!-- End .row -->
+            
+                                        <div>
+                                          <div class="d-flex">
+                                            <label class="w-50">  Address *</label>
+                                            <p class="text-danger d-flex justify-content-end w-50">
+                                            </p>
+                                          </div>
+                                          <input type="text" class="form-control" placeholder="House number,Flat,Building,Apartment" id="houseNo" name="house number"  >
+                                        </div>
+                                        <div>
+                                          <p id="err2" class="text-danger"></p>
+                                          <input type="text" class="form-control" placeholder="Area , street ,sector etc ..." id="street" name="street" >
+                                        </div>
+            
+                                        <div class="row">
+                                          <div class="col-12">
+                                            <div class="d-flex">
+                                              <label class="w-50">Town / City *</label>
+                                              <p class="text-danger d-flex justify-content-end w-50">
+                                              </p>
+                                            </div>
+                                            <input type="text" class="form-control" id="city" name="city"  >
+                                          </div><!-- End .col-12 -->
+            
+                                          <div class="col-12">
+                                            <div class="d-flex">
+                                              <label class="w-50">State *</label>
+                                              <p class="text-danger d-flex justify-content-end w-50">
+                                              </p>
+                                            </div>
+                                            <select class="form-control " name="category" id="state">
+            
+                                               <option class="text-dark">
+                                                  kerala
+                                               </option>
+                                      
+                                            </select>
+                                          </div><!-- End .col-12 -->
+                                        </div><!-- End .row -->
+                                        <div class="row">
+                                          <div class="col-12">
+                                            <div class="d-flex">
+                                              <label class="w-50">Pincode/ZIP*</label>
+                                              <p class="text-danger d-flex justify-content-end w-50">
+                                              </p>
+                                            </div>
+                                            <input type="text" class="form-control" id="pincode" name="pincode" >
+                                          </div><!-- End .col-12 -->
+                                          <div class="col-12">
+                                            <div class="d-flex">
+                                              <label class="w-50">Phone *</label>
+                                              <p class="text-danger d-flex justify-content-end w-50">
+                                              </p>
+                                            </div>
+                                            <input type="tel" class="form-control" id="mobile" name="mobile"  >
+                                          </div><!-- End .col-12 -->
+                                        </div><!-- End .row -->
+                                        <div class="mb-5">
+                                          <div class="d-flex">
+                                            <label class="w-50">Email address *</label>
+                                            <p class="text-danger d-flex justify-content-end w-50">
+                                            </p>
+                                          </div>
+                                          <input type="email" class="form-control" id="email" name="email"  >
+                                        </div>
+                                        <input type="text" id="_id" hidden >
+                                        <button type="button" onclick="editAddress(this)" class="btn btn-outline-primary-2 mx-auto">
+                                          <span>SAVE CHANGES</span>
+                                          <i class="icon-long-arrow-right"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+
+                            <!-- edit account -->
+
+                          <!-- edit address  model -->
+                          <div class="modal fade" id="editaccount"  role="dialog">
+                            <div class="modal-dialog">
+        
+                              <!--  addd new addrss Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Edit Account</h4>
+                                  <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                </div>
+                                <div class="modal-body">
+        
+                                  <div class="col-lg-12 my-5">
+                                    <div class="row ">
+                                      <div class="col-12">
+                                        <div class="d-flex">
+                                          <label class="w-40"> Name *</label>
+                                          <p class="text-danger d-flex justify-content-end w-60">
+                                          </p>
+                                        </div>
+                                        <input type="text" class="form-control" id="ename" name=" name" value="<%-user.name%>" >
+                                      </div><!-- End .col-12 -->
+        
+                                       
+                                    </div><!-- End .row -->
+        
+                                     
+                                     
+        
+                                     
+                                    <div class="row">
+                                       
+                                      <div class="col-12">
+                                        <div class="d-flex">
+                                          <label class="w-50">Phone *</label>
+                                          <p class="text-danger d-flex justify-content-end w-50">
+                                          </p>
+                                        </div>
+                                        <input type="tel" class="form-control" id="emobile" name="mobile" value="<%-user.mobile%>" >
+                                      </div><!-- End .col-12 -->
+                                    </div><!-- End .row -->
+                                    <div class="mb-5">
+                                      <div class="d-flex">
+                                        <label class="w-50">Email address *</label>
+                                        <p class="text-danger d-flex justify-content-end w-50">
+                                        </p>
+                                      </div>
+                                      <input type="email" class="form-control" id="eemail" name="email" value="<%-user.email%>" >
+                                    </div>
+                                    <input type="text" id="_id" hidden >
+                                    <button type="button" onclick="editAccount(this)" class="btn btn-outline-primary-2 mx-auto">
+                                      <span>SAVE CHANGES</span>
+                                      <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                           <!-- edit account end -->
+
+
+                        
+                            <!-- edit password -->
+
+                          <!-- edit address  model -->
+                          <div class="modal fade" id="editpassword"  role="dialog">
+                            <div class="modal-dialog">
+        
+                              <!--  addd new addrss Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Change Password</h4>
+                                  <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                </div>
+                                <div class="modal-body">
+        
+                                  <div class="col-lg-12 my-5">
+                                    <div class="row ">
+                                      <div class="col-12">
+                                        <div class="d-flex">
+                                          <label class="w-40"> Enter The Old Password</label>
+                                          <p class="text-danger d-flex justify-content-end w-60">
+                                          </p>
+                                        </div>
+                                        <input type="password" class="form-control" id="oldP" name=" opassword"   >
+                                      </div><!-- End .col-12 -->
+        
+                                       
+                                    </div><!-- End .row -->
+        
+                                     
+                                     
+        
+                                     
+                                    <div class="row">
+                                       
+                                      <div class="col-12">
+                                        <div class="d-flex">
+                                          <label class="w-50">New Password</label>
+                                          <p class="text-danger d-flex justify-content-end w-50">
+                                          </p>
+                                        </div>
+                                        <input type="password" class="form-control" id="newP" name="npassword" >
+                                      </div><!-- End .col-12 -->
+                                    </div><!-- End .row -->
+                                     
+                                     <button type="button" onclick="changePassword(this)" class="btn btn-outline-primary-2 mx-auto">
+                                      <span>SAVE CHANGES</span>
+                                      <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                           <!-- edit account end -->
+
+
+
+
+
+
+                            
+
+
+
+
+
+
+
+                                <!-- Add address Model -->
+                                     
+                                    <div class="modal fade" id="addAddress" role="dialog">
+                                      <div class="modal-dialog">
+                  
+                                        <!--  addd new addrss Modal content-->
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h4 class="modal-title">Add New Address</h4>
+                                            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                                          </div>
+                                          <div class="modal-body">
+                  
+                                            <div class="col-lg-12 my-5">
+                                              <div class="row ">
+                                                <div class="col-12">
+                                                  <div class="d-flex">
+                                                    <label class="w-40"> Name *</label>
+                                                    <p class="text-danger d-flex justify-content-end w-60">
+                                                    </p>
+                                                  </div>
+                                                  <input type="text" class="form-control" id="nameNew" name=" name">
+                                                </div><!-- End .col-12 -->
+                  
+                                                 
+                                              </div><!-- End .row -->
+                  
+                                              <div>
+                                                <div class="d-flex">
+                                                  <label class="w-50">  Address *</label>
+                                                  <p class="text-danger d-flex justify-content-end w-50">
+                                                  </p>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="House number,Flat,Building,Apartment" id="houseNew" name="house number">
+                                              </div>
+                                              <div>
+                                                <p id="err2" class="text-danger"></p>
+                                                <input type="text" class="form-control" placeholder="Area , street ,sector etc ..." id="streetNew" name="street">
+                                              </div>
+                  
+                                              <div class="row">
+                                                <div class="col-12">
+                                                  <div class="d-flex">
+                                                    <label class="w-50">Town / City *</label>
+                                                    <p class="text-danger d-flex justify-content-end w-50">
+                                                    </p>
+                                                  </div>
+                                                  <input type="text" class="form-control" id="cityNew" name="city">
+                                                </div><!-- End .col-12 -->
+                  
+                                                <div class="col-12">
+                                                  <div class="d-flex">
+                                                    <label class="w-50">State *</label>
+                                                    <p class="text-danger d-flex justify-content-end w-50">
+                                                    </p>
+                                                  </div>
+                                                  <select class="form-control " name="category" id="stateNew">
+                  
+                                                     <option class="text-dark">
+                                                        kerala
+                                                     </option>
+                                            
+                                                  </select>
+                                                </div><!-- End .col-12 -->
+                                              </div><!-- End .row -->
+                                              <div class="row">
+                                                <div class="col-12">
+                                                  <div class="d-flex">
+                                                    <label class="w-50">Pincode/ZIP*</label>
+                                                    <p class="text-danger d-flex justify-content-end w-50">
+                                                    </p>
+                                                  </div>
+                                                  <input type="text" class="form-control" id="pincodeNew" name="pincode">
+                                                </div><!-- End .col-12 -->
+                                                <div class="col-12">
+                                                  <div class="d-flex">
+                                                    <label class="w-50">Phone *</label>
+                                                    <p class="text-danger d-flex justify-content-end w-50">
+                                                    </p>
+                                                  </div>
+                                                  <input type="tel" class="form-control" id="mobileNew" name="mobile">
+                                                </div><!-- End .col-12 -->
+                                              </div><!-- End .row -->
+                                              <div class="mb-5">
+                                                <div class="d-flex">
+                                                  <label class="w-50">Email address *</label>
+                                                  <p class="text-danger d-flex justify-content-end w-50">
+                                                  </p>
+                                                </div>
+                                                <input type="email" class="form-control" id="emailNew" name="email">
+                                              </div>
+                                              <input type="text" id="_id" hidden>
+                                              <button type="button" onclick="addAddress(this)" class="btn btn-outline-primary-2 mx-auto">
+                                                <span>SAVE CHANGES</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                              </button>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                       
+
+                                    
+                                    
+                                  </div>
+                                  <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                                    <!-- <form action="#">
+                                      <div class="row">
+                                        <div class="col-sm-6">
+                                          <label>First Name *</label>
+                                          <input type="text" class="form-control" required>
+                                        </div>End .col-sm-6 -->
+                                        <!-- <div class="col-sm-6">
+                                          <label>Last Name *</label>
+                                          <input type="text" class="form-control" required>
+                                        </div>End .col-sm-6 -->
+                                      <!-- </div>End .row -->
+
+
+
+
+
+                                      
+
+
+
+
+                                    <!-- <label>Display Name *</label>
+                                    <input type="text" class="form-control" required>
+                                    <small class="form-text">This will be how your name will be displayed in the account section and in reviews</small>
+
+                                    <label>Email address *</label>
+                                    <input type="email" class="form-control" required>
+
+                                    <label>Current password (leave blank to leave unchanged)</label>
+                                    <input type="password" class="form-control">
+
+                                    <label>New password (leave blank to leave unchanged)</label>
+                                    <input type="password" class="form-control">
+
+                                    <label>Confirm new password</label>
+                                    <input type="password" class="form-control mb-2">
+
+                                    <button type="submit" class="btn btn-outline-primary-2">
+                                        <span>SAVE CHANGES</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                </form>  -->
+                            </div><!-- .End .tab-pane -->
+                        </div>
+                    </div><!-- End .col-lg-9 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .dashboard -->
+    </div><!-- End .page-content -->
+
+    <script>
+        function addAddress(button) {
+
+    const name = button.parentElement.querySelector('#nameNew')
+    const nameValue = name?.value.trim()
+    const nameErr = name.parentElement.querySelector('p')
+    nameErr.innerText = ""
+
+
+    
+
+
+    const address = button.parentElement.querySelector('#houseNew')
+    const addressValue = address?.value.trim()
+    const addressErr = address.parentElement.querySelector('p')
+    addressErr.innerText = ''
+
+
+    const street = button.parentElement.querySelector('#streetNew')
+    const streetValue = street?.value.trim()
+    const streetErr = street.parentElement.querySelector('p')
+    streetErr.innerText = ''
+
+
+    const city = button.parentElement.querySelector('#cityNew')
+    const cityValue = city?.value.trim()
+    const cityErr = city.parentElement.querySelector('p')
+    cityErr.innerText = ""
+
+
+    const stateValue = button.parentElement.querySelector('#stateNew').value
+    const pincode = button.parentElement.querySelector('#pincodeNew')
+    const pincodeValue = pincode?.value.trim()
+    const pincodeErr = pincode.parentElement.querySelector('p')
+    pincodeErr.innerText = ""
+
+
+    const phone = button.parentElement.querySelector('#mobileNew')
+    const phoneValue = phone?.value.trim()
+    const phoneErr = phone.parentElement.querySelector('p')
+
+
+    const email = button.parentElement.querySelector('#emailNew')
+    const emailValue = email?.value.trim()
+    const emailErr = email.parentElement.querySelector('p')
+    emailErr.innerText = ""
+
+
+
+    let flag = 1
+    if (nameValue == "") {
+      nameErr.innerText = "This field is required"
+      let flag = 2
+    }
+
+     
+
+    if (addressValue == "") {
+      addressErr.innerText = "This field is required"
+      flag = 2
+
+    } else if (addressValue.length <= 4) {
+      addressErr.innerText = "Minimum 5 character is required "
+      flag = 2
+    }
+
+    if (streetValue == '') {
+      streetErr.innerText = "This field is required"
+      flag = 2
+
+    } else if (streetValue.length <= 4) {
+      streetErr.innerText = "Minimum 5 character is required "
+      flag = 2
+    }
+
+    if (cityValue == "") {
+      cityErr.innerText = "This field is required"
+      flag = 2
+    }
+
+    if (pincodeValue == '') {
+      pincodeErr.innerText = "This field is required"
+      flag = 2
+
+    } else if (!pincodeValue.match(/^[0-9]{6}$/)) {
+      pincodeErr.innerText = "Please Enter a valid pincode"
+      flag = 2
+    }
+
+    if (phoneValue == "") {
+      phoneErr.innerText = "This field is required"
+      flag = 2
+
+    } else if (!phoneValue.match(/^[0-9]{10}$/)) {
+      phoneErr.innerText = "Please enter a valid phone number"
+      flag = 2
+    }
+
+    if (emailValue == "") {
+      emailErr.innerText = "This field is required"
+      flag = 2
+
+    } else if (!emailValue.match(/^[A-Za-z0-9_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/)) {
+      emailErr.innerText = "Please enter a valid Email address"
+
+    }
+
+    
+    if (flag == 1) {
+      $.ajax({
+        url: '/add-address',
+        method: 'POST',
+        data: {
+
+
+          name: nameValue,
+          houseNo: addressValue,
+          street: streetValue,
+          city: cityValue,
+          state: stateValue,
+          pincode: pincodeValue,
+          mobile: phoneValue,
+          email: emailValue,
+
+        },
+        success: (response) => {
+ 
+            if (response.status) {
+            Swal.fire(
+              'Saved!',
+              'Your address has been saved.',
+              'success'
+            )
+            location.replace('/accounts')
+          } else {
+            Swal.fire(
+              '',
+              'Some thing went wrong.',
+              'warning'
+            )
+          }
+        }
+      })
+    }
+  }
+
+
+  function addAddress(button) {
+
+const name = button.parentElement.querySelector('#nameNew')
+const nameValue = name?.value.trim()
+const nameErr = name.parentElement.querySelector('p')
+nameErr.innerText = ""
+
+
+
+
+
+const address = button.parentElement.querySelector('#houseNew')
+const addressValue = address?.value.trim()
+const addressErr = address.parentElement.querySelector('p')
+addressErr.innerText = ''
+
+
+const street = button.parentElement.querySelector('#streetNew')
+const streetValue = street?.value.trim()
+const streetErr = street.parentElement.querySelector('p')
+streetErr.innerText = ''
+
+
+const city = button.parentElement.querySelector('#cityNew')
+const cityValue = city?.value.trim()
+const cityErr = city.parentElement.querySelector('p')
+cityErr.innerText = ""
+
+
+const stateValue = button.parentElement.querySelector('#stateNew').value
+const pincode = button.parentElement.querySelector('#pincodeNew')
+const pincodeValue = pincode?.value.trim()
+const pincodeErr = pincode.parentElement.querySelector('p')
+pincodeErr.innerText = ""
+
+
+const phone = button.parentElement.querySelector('#mobileNew')
+const phoneValue = phone?.value.trim()
+const phoneErr = phone.parentElement.querySelector('p')
+
+
+const email = button.parentElement.querySelector('#emailNew')
+const emailValue = email?.value.trim()
+const emailErr = email.parentElement.querySelector('p')
+emailErr.innerText = ""
+
+
+
+let flag = 1
+if (nameValue == "") {
+  nameErr.innerText = "This field is required"
+  let flag = 2
+}
+
+ 
+
+if (addressValue == "") {
+  addressErr.innerText = "This field is required"
+  flag = 2
+
+} else if (addressValue.length <= 4) {
+  addressErr.innerText = "Minimum 5 character is required "
+  flag = 2
+}
+
+if (streetValue == '') {
+  streetErr.innerText = "This field is required"
+  flag = 2
+
+} else if (streetValue.length <= 4) {
+  streetErr.innerText = "Minimum 5 character is required "
+  flag = 2
+}
+
+if (cityValue == "") {
+  cityErr.innerText = "This field is required"
+  flag = 2
+}
+
+if (pincodeValue == '') {
+  pincodeErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!pincodeValue.match(/^[0-9]{6}$/)) {
+  pincodeErr.innerText = "Please Enter a valid pincode"
+  flag = 2
+}
+
+if (phoneValue == "") {
+  phoneErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!phoneValue.match(/^[0-9]{10}$/)) {
+  phoneErr.innerText = "Please enter a valid phone number"
+  flag = 2
+}
+
+if (emailValue == "") {
+  emailErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!emailValue.match(/^[A-Za-z0-9_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/)) {
+  emailErr.innerText = "Please enter a valid Email address"
+
+}
+
+
+if (flag == 1) {
+  $.ajax({
+    url: '/add-address',
+    method: 'POST',
+    data: {
+
+
+      name: nameValue,
+      houseNo: addressValue,
+      street: streetValue,
+      city: cityValue,
+      state: stateValue,
+      pincode: pincodeValue,
+      mobile: phoneValue,
+      email: emailValue,
+
+    },
+    success: (response) => {
+
+        if (response.status) {
+        Swal.fire(
+          'Saved!',
+          'Your address has been saved.',
+          'success'
+        )
+        location.replace('/accounts')
+      } else {
+        Swal.fire(
+          '',
+          'Some thing went wrong.',
+          'warning'
+        )
+      }
+    }
+  })
+}
+}
+
+
+function editAddress(button) {
+
+const name = button.parentElement.querySelector('#name')
+const nameValue = name?.value.trim()
+const nameErr = name.parentElement.querySelector('p')
+nameErr.innerText = ""
+
+
+
+
+
+const address = button.parentElement.querySelector('#houseNo')
+const addressValue = address?.value.trim()
+const addressErr = address.parentElement.querySelector('p')
+addressErr.innerText = ''
+
+
+const street = button.parentElement.querySelector('#street')
+const streetValue = street?.value.trim()
+const streetErr = street.parentElement.querySelector('p')
+streetErr.innerText = ''
+
+
+const city = button.parentElement.querySelector('#city')
+const cityValue = city?.value.trim()
+const cityErr = city.parentElement.querySelector('p')
+cityErr.innerText = ""
+
+
+const stateValue = button.parentElement.querySelector('#state').value
+const pincode = button.parentElement.querySelector('#pincode')
+const pincodeValue = pincode?.value.trim()
+const pincodeErr = pincode.parentElement.querySelector('p')
+pincodeErr.innerText = ""
+
+
+const phone = button.parentElement.querySelector('#mobile')
+const phoneValue = phone?.value.trim()
+const phoneErr = phone.parentElement.querySelector('p')
+
+
+const email = button.parentElement.querySelector('#email')
+const emailValue = email?.value.trim()
+const emailErr = email.parentElement.querySelector('p')
+emailErr.innerText = ""
+
+const id = button.parentElement.querySelector('#_id')
+const idValue = id?.value
+
+let flag = 1
+if (nameValue == "") {
+  nameErr.innerText = "This field is required"
+  let flag = 2
+}
+
+ 
+
+if (addressValue == "") {
+  addressErr.innerText = "This field is required"
+  flag = 2
+
+} else if (addressValue.length <= 4) {
+  addressErr.innerText = "Minimum 5 character is required "
+  flag = 2
+}
+
+if (streetValue == '') {
+  streetErr.innerText = "This field is required"
+  flag = 2
+
+} else if (streetValue.length <= 4) {
+  streetErr.innerText = "Minimum 5 character is required "
+  flag = 2
+}
+
+if (cityValue == "") {
+  cityErr.innerText = "This field is required"
+  flag = 2
+}
+
+if (pincodeValue == '') {
+  pincodeErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!pincodeValue.match(/^[0-9]{6}$/)) {
+  pincodeErr.innerText = "Please Enter a valid pincode"
+  flag = 2
+}
+
+if (phoneValue == "") {
+  phoneErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!phoneValue.match(/^[0-9]{10}$/)) {
+  phoneErr.innerText = "Please enter a valid phone number"
+  flag = 2
+}
+
+if (emailValue == "") {
+  emailErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!emailValue.match(/^[A-Za-z0-9_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/)) {
+  emailErr.innerText = "Please enter a valid Email address"
+
+}
+
+
+if (flag == 1) {
+  $.ajax({
+    url: '/edit-address',
+    method: 'PUT',
+    data: {
+
+
+      name: nameValue,
+      houseNo: addressValue,
+      street: streetValue,
+      city: cityValue,
+      state: stateValue,
+      pincode: pincodeValue,
+      mobile: phoneValue,
+      email: emailValue,
+      id:idValue
+
+    },
+    success: (response) => {
+
+        if (response.status) {
+        Swal.fire(
+          'Saved!',
+          'Your address has been saved.',
+          'success'
+        )
+        location.replace('/accounts')
+      } else {
+        Swal.fire(
+          '',
+          ' Sorry Some thing went wrong.',
+          'warning'
+        )
+      }
+    }
+  })
+}
+}
+
+function editAccount(button) {
+
+const name = button.parentElement.querySelector('#ename')
+const nameValue = name?.value.trim()
+const nameErr = name.parentElement.querySelector('p')
+nameErr.innerText = ""
+
+const phone = button.parentElement.querySelector('#emobile')
+const phoneValue = phone?.value.trim()
+const phoneErr = phone.parentElement.querySelector('p')
+
+
+const email = button.parentElement.querySelector('#eemail')
+const emailValue = email?.value.trim()
+const emailErr = email.parentElement.querySelector('p')
+emailErr.innerText = ""
+
+ 
+let flag = 1
+if (nameValue == "") {
+  nameErr.innerText = "This field is required"
+  let flag = 2
+}
+
+if (phoneValue == "") {
+  phoneErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!phoneValue.match(/^[0-9]{10}$/)) {
+  phoneErr.innerText = "Please enter a valid phone number"
+  flag = 2
+}
+
+if (emailValue == "") {
+  emailErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!emailValue.match(/^[A-Za-z0-9_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/)) {
+  emailErr.innerText = "Please enter a valid Email address"
+
+}
+
+
+if (flag == 1) {
+  $.ajax({
+    url: '/edit-account',
+    method: 'PUT',
+    data: {
+
+
+      name: nameValue,
+      mobile: phoneValue,
+      email: emailValue,
+ 
+    },
+    success: (response) => {
+
+        if (response.status) {
+        Swal.fire(
+          'Saved!',
+          'Your address has been saved.',
+          'success'
+        )
+        location.replace('/accounts')
+      } else {
+        Swal.fire(
+          '',
+          ' Sorry Some thing went wrong.',
+          'warning'
+        )
+      }
+    }
+  })
+}
+}
+
+function changePassword(button) {
+
+const password = button.parentElement.querySelector('#oldP')
+const passwordValue = password?.value.trim()
+const passwordErr = password.parentElement.querySelector('p')
+passwordErr.innerText = ""
+
+const npassword = button.parentElement.querySelector('#newP')
+const npasswordValue = npassword?.value.trim()
+const npasswordErr = npassword.parentElement.querySelector('p')
+
+
+
+ 
+let flag = 1
+if (passwordValue == "") {
+            passwordErr.innerHTML = "This Field is Required"
+            flag = 2
+        } else if (passwordValue.length <= 4) {
+            passwordErr.innerHTML = "Please Enter Minimum 4 Characters"
+            flag = 2
+        }
+        if (npasswordValue == "") {
+            npasswordErr.innerHTML = "This Field is Required"
+            flag = 2
+        } else if (npasswordValue.length <= 4) {
+            npasswordErr.innerHTML = "Please Enter Minimum 4 Characters"
+            flag = 2
+        }
+
+ 
+
+
+if (flag == 1) {
+  $.ajax({
+    url: '/edit-password',
+    method: 'PUT',
+    data: {
+
+
+      oldPassword:passwordValue,
+      newPassword: npasswordValue,
+  
+    },
+    success: (response) => {
+
+        if (response.status) {
+        Swal.fire(
+          'Saved!',
+          'New password saved successfully',
+          'success'
+        )
+        location.replace('/accounts')
+      } else {
+        Swal.fire(
+          '',
+          ' Sorry Incorrect Password.',
+          'warning'
+        )
+      }
+    }
+  })
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function findAddress(addressId) {
+    const inputId = ['name','houseNo','street', 'city', 'state', 'pincode','mobile','email','_id']
+    $.ajax({
+      url: '/autofill-address/' + addressId,
+      method: 'GET',
+      success: (response) => {
+        let data = response.address
+        inputId.forEach(e => {
+          document.getElementById(e).value = data[e]
+        })
+      }
+    })
+  }
+
+
+
+  function deleteAddress(addressId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          $.ajax({
+            url: '/delete-address/' + addressId,
+            method: 'GET',
+            success: (response) => {
+              location.reload()
+            }
+          }),
+          'Deleted!',
+          'Address is deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
+   
+
+    </script>
+
+
+
+     

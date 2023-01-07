@@ -1,0 +1,341 @@
+<section class="pt-4">
+
+     
+ 
+    <div class="col-12 ml-2  mt-2">
+       <span>TOTAL SALES:₹</span><span id="totalSales"><%=totalSales%></span><br><br>
+
+        <span class="mt-2">TOTAL ORDERS:</span><span id="totalOrders"><%=totalOrders%></span>
+       <div class="card  mt-2">
+        <div class="card-header pb-0">
+          <h6 class="text-center">Product By Sales</h6>
+          <span class="ml-2"><label for="i">FROM </label><input class="ml-1" id="fDate" type="date" value="2023-01-01"></span>
+           <span class="ml-2"><label for="i">TO </label><input class="ml-1" id="tDate" type="date" value="2024-01-01"></span>
+             <button id="searchBtn" class= "btn btn-info btn-sm" href="">Search</a>
+                <button id="export-button" class= "btn btn-light btn-sm" href="">Export To Pdf</a>
+                    <button  class= "btn btn-light btn-sm" href="" onclick="exportToExcel()">Export To Excell Sheet</a>
+
+
+
+ 
+
+
+        </div>
+         <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th> -->
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Id</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Category</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Total Qt: Sold </th>
+ 
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total NO:Of Orders</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Total Sales</th>
+ 
+                 </tr>
+              </thead>
+              <tbody>
+                <% productSales.forEach((data)=>{%> 
+                <tr>
+                  <!-- <td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                   </td> -->
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm"><%=data._id%></h6>
+                       </div>
+                    </div>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-sm"> <%=data.productName%></h6>
+                  </td>
+                  <td>
+                     <h6 class="mb-0 text-sm"><%=data.productCategory%></h6>
+                   </td>
+                   <td>
+                     <h6 class="mb-0 text-sm"> <%=data.totalQuantity%> </h6>
+                   </td>
+                   
+                  <td>
+                     
+                    <p class="text-xs font-weight-bold mb-0">  <%=data.numOfOrders%></p>
+                  </td>
+                  <td>
+                     
+                     <p class="text-xs font-weight-bold mb-0"> <%=data.prodSales%>  </p>
+                   </td>
+                  <td class="align-middle text-center text-sm">
+                    <div class="ms-auto text-end">
+                      <a class="btn btn-link text-danger text-gradient px-3 mb-0" > </a>
+                    </div>
+                  </td>
+                </tr>
+                <%})%>
+                
+               </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+  </section>
+   
+
+  <script>
+    document.getElementById('searchBtn').addEventListener('click',(e)=>{
+        e.preventDefault();
+        let formDate=document.getElementById('fDate').value
+        let toDate=document.getElementById('tDate').value
+
+
+         fetch('/admin/get-product-report',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                startDate:formDate,
+                endDate:toDate
+            }),
+            
+        }).then((response)=>response.json())
+        .then((data)=>{
+            updateTable(data)
+        }).catch(console.error(error));
+        
+    });
+
+    function updateTable(data) {
+        let tbody=document.querySelector('tbody');
+        tbody.innerHTML='';
+        let value=0;
+        let order=0 
+        data.forEach(element => {
+            let tr=document.createElement('tr');
+               value=element.prodSales+value
+               order=element.numOfOrders+order
+             
+
+            tr.innerHTML=`<td>${element._id}</td>
+            <td>${element.productName}</td>
+            <td>${element.productCategory}</td>
+            <td>${element.totalQuantity}</td>
+            <td>${element.numOfOrders}</td>
+            <td>${element.prodSales}</td>
+            `;
+            tbody.appendChild(tr)
+            
+        });
+        let total=document.getElementById('totalSales')
+        total.innerText=value;
+        let totalOrders=document.getElementById('totalOrders')
+        totalOrders.innerText=order;
+
+    }
+
+    const exportButton = document.querySelector('#export-button');
+
+// Add an event listener to the button
+exportButton.addEventListener('click', () => {
+  // Generate the PDF
+  const pdf = new jsPDF();
+
+  pdf.setFontSize(20);
+pdf.text('Sales Report', pdf.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+
+
+  const startDate = document.querySelector('#fDate').value;
+const endDate = document.querySelector('#tDate').value;
+const totaSales=document.getElementById('totalSales').innerText;
+const totalOrders=document.getElementById('totalOrders').innerText;
+
+
+// Add the date range and headings as a row to the PDF
+pdf.autoTable({
+  head: [[`Date Range: ${startDate} - ${endDate}`]],
+  body: [],
+  styles: {
+    fontSize: 10,
+    cellPadding: 2,
+    fontStyle: 'bold',
+    fillColor: [100, 105, 95  ]
+  },
+  headStyles: {
+    fillColor: [100, 105, 95  ]
+  },
+  margin: {
+    top: 30,
+
+  }
+});
+
+pdf.autoTable({
+  head: [[`TOTAL_SALES: ${totaSales}`]],
+  body: [],
+  styles: {
+    fontSize: 10,
+    cellPadding: 2,
+    fontStyle: 'bold',
+    fillColor: [49, 48, 61   ]
+  },
+  headStyles: {
+    fillColor: [49, 48, 61    ]
+  },
+  margin: {
+    top: 30,
+
+  }
+});
+
+pdf.autoTable({
+  head: [[`TOTAL_ORDERS: ${totalOrders}`]],
+  body: [],
+  styles: {
+    fontSize: 10,
+    cellPadding: 2,
+    fontStyle: 'bold',
+    fillColor: [49, 48, 61    ]
+  },
+  headStyles: {
+    fillColor: [49, 48, 61    ]
+  },
+  margin: {
+    top: 30,
+
+  }
+});
+
+
+
+
+
+
+pdf.autoTable({
+  head: [
+    ['ProductId', 'Name', 'Category', 'Quantity', 'Orders', 'Sales']
+  ],
+  body: [],
+  headStyles:{
+    fillColor:[46, 88, 230 ]
+  },
+
+  columnStyles: {
+    0: { cellWidth: 'auto', halign: 'right' },
+    1: { cellWidth: 'auto', halign: 'left' },
+    2: { cellWidth: 'auto', halign: 'left' },
+    3: { cellWidth: 'auto', halign: 'right' },
+    4: { cellWidth: 'auto', halign: 'right' },
+    5: { cellWidth: 'auto', halign: 'right' }
+  }
+    
+  
+
+});
+
+  // Iterate through the rows of the table
+  const rows = document.querySelectorAll('table tbody tr');
+  rows.forEach(row => {
+    // Iterate through the cells of the row
+    const cells = row.querySelectorAll('td');
+    const cellValues = [];
+    cells.forEach(cell => {
+      cellValues.push(cell.innerText);
+    });
+
+    // Add the cell values as a row to the PDF
+    pdf.autoTable({
+      head: [],
+      body: [cellValues],
+      styles: {
+      fontSize: 10,
+      cellPadding: 5
+    },
+    columnStyles: {
+      0: { cellWidth: 'auto', halign: 'right' },
+      1: { cellWidth: 'auto', halign: 'left' },
+      2: { cellWidth: 'auto', halign: 'left' },
+      3: { cellWidth: 'auto', halign: 'right' },
+      4: { cellWidth: 'auto', halign: 'right' },
+      5: { cellWidth: 'auto', halign: 'right' }
+    }
+
+    });
+  });
+
+
+
+  // Save the PDF to the user's device
+
+              
+  pdf.save('sales-report.pdf');
+
+
+
+
+
+
+});
+
+ function exportToExcel( ) {
+const startDate = document.getElementById('fDate').value;
+const endDate = document.getElementById('tDate').value;
+
+  fetch('/admin/export-to-excel', {
+  method: 'POST',
+  body:JSON.stringify({ 
+    startDate:startDate,
+    endDate:endDate
+     }),
+     
+  headers:{
+        'Content-Type': 'application/json'
+         },
+
+    
+})
+.then((response) => {
+    // Check the status code of the response
+    if (response.ok) {
+      // If the status is 200 (OK), return the response as a blob
+      return response.blob();
+    } else {
+      // If the status is not OK, throw an error
+      throw new Error('Failed to generate report');
+    }
+  })
+  .then((blob) => {
+    // Create an object URL for the blob
+    const objectURL = URL.createObjectURL(blob);
+
+    // Create a new anchor element
+    const a = document.createElement('a');
+
+    // Set the href and download attributes of the anchor
+    a.href = objectURL;
+    a.download = 'sales.xlsx';
+
+    // Append the anchor to the body and click it
+    document.body.appendChild(a);
+    a.click();
+
+    // Remove the anchor from the body
+    document.body.removeChild(a);
+
+    // Revoke the object URL
+    URL.revokeObjectURL(objectURL);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+    
+ }
+
+
+  
+   
+    
+  </script>

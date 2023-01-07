@@ -1,0 +1,67 @@
+<section>
+
+     
+
+    <div class="col-12 ml-2">
+     <a class= "btn btn-dark btn-sm mt-5 mb-2" href="/admin/add-banner">Add Banner</a>
+      <div class="card  mt-2">
+        <div class="card-header pb-0">
+          <h6>Banners</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Banner Type</th>
+
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Banner Title</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Banner Url</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Edit  </th>
+ 
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Delete  </th>
+                   
+                </tr>
+              </thead>
+              <tbody>
+                <%banners.forEach((banner,index)=>{%> 
+                 <tr>
+                    <td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                       <%=index+1%> 
+                    </td>
+                  <td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    <%=banner.category%>
+                   </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm"><%=banner.title%></h6>
+                       </div>
+                    </div>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-sm"><%=banner.description%></h6>
+                  </td>
+                  <td>
+                     <h6 class="mb-0 text-sm"><%=banner.url%></h6>
+                   </td>
+                   <td>
+                     <h6 class="mb-0 text-sm text-info"><a href="/admin/edit-banner/<%=banner.category%>">Edit Banner</a>  </h6>
+                   </td>
+                   <td>
+                    <h6 class="mb-0 text-sm text-danger">Delete Banner</h6>
+                  </td>
+                   
+                   
+                </tr>
+                <%})%>
+               </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+  </section>

@@ -1,0 +1,193 @@
+<section>
+
+
+    <div class="page-wrapper">
+
+<main class="main">
+     
+
+    <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style=" background-image: url('/images/backgrounds/login-bg.jpg')">
+        <div class="container">
+            <div class="form-box">
+                <div class="form-tab">
+                    <ul class="nav nav-pills nav-fill" role="tablist">        
+                        <li class="nav-item">
+                            <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Sign Up</a>
+                        </li>
+                         
+                    </ul>
+                    <div class="tab-content"> 
+                        <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+
+
+
+                            <form>
+                                <p class="text-danger text-center" id="errorExist"></p>
+                            <div class="row">
+                                <div class="form-group col md-6">
+                                    <label for="singin-email-2">Your Name*</label>
+                                    <p id="nameError" class="text-danger text-center"></p>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div><!-- End .form-group -->
+
+
+                                <div class="form-group col md-6">
+                                    <label for="singin-password-2">Mobile Number</label>
+                                    <p id="mobileError" class="text-danger text-center"></p>
+                                    <input type="tel" class="form-control" id="mobile" name="mobile" required>
+                                </div><!-- End .form-group -->
+
+                                
+                                
+
+                                <div class="form-group col-md-12">
+                                    <label for="singin-password-2">Your Email</label>
+                                    <p id="emailError" class="text-danger text-center"></p>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div><!-- End .form-group -->
+
+
+                                <div class="form-group col-md-12">
+                                    <label for="singin-password-2">Password</label>
+                                     <p id="passwordError" class="text-danger text-center"></p>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div><!-- End .form-group -->
+
+
+                                <div class="form-footer" >
+            
+                                    <div >
+                                   
+                                    <button type="button" class="btn btn-outline-primary-2 ml-3 " onclick="validation()">
+                                        REGISTER
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+                                    </div>
+                                      <div>
+                                    <a href="/login" class="forgot-link ">Already have an account?</a>
+                                     </div>
+                                
+
+                                </div><!-- End .form-footer -->
+                            </div>
+                            </form>
+                            <div class="form-choice">
+                                <p class="text-center">or sign in with</p>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login btn-g">
+                                            <i class="icon-google"></i>
+                                            Login With Google
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login btn-f">
+                                            <i class="icon-facebook-f"></i>
+                                            Login With Facebook
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .form-choice -->
+                        </div><!-- .End .tab-pane -->
+                         
+                    </div><!-- End .tab-content -->
+                </div><!-- End .form-tab -->
+            </div><!-- End .form-box -->
+        </div><!-- End .container -->
+    </div><!-- End .login-page section-bg -->
+</main><!-- End .main -->
+
+</div>
+
+</section>
+<script>
+
+    function validation() {
+    const name = document.getElementById('name');
+
+    const email = document.getElementById('email');
+
+    const mobile = document.getElementById('mobile');
+
+    const password = document.getElementById('password');
+
+     const nameValue = name.value.trim();
+     const emailValue = email.value.trim();
+     const mobileValue = mobile.value.trim();
+     const passwordValue = password.value.trim();
+
+      
+
+        const nameError = document.getElementById('nameError')
+        const emailError = document.getElementById('emailError')
+        const mobileError = document.getElementById('mobileError')
+        const passwordError = document.getElementById('passwordError')
+
+        nameError.innerHTML=""
+        emailError.innerHTML=""
+        mobileError.innerHTML=""
+        passwordError.innerHTML=""
+        
+
+
+        let flag = 1
+        
+    
+         
+        if (nameValue == "") {
+            nameError.innerHTML= "This Field is Required"
+            flag = 2
+        } else if (nameValue.length <4) {
+            nameError.innerHTML= "minimum 4 characters required"
+            flag = 2
+        }
+        if (emailValue == "") {
+            emailError.innerHTML = "This Field is Required"
+            flag = 2
+        } else if (!emailValue.match(/^[A-Za-z0-9_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/)) {
+            emailError.innerHTML= "Please enter a valid email address"
+            flag = 2
+        }
+        if (mobileValue == "") {
+            mobileError.innerHTML = "This Field is Required"
+            flag = 2
+        } else if (!mobileValue.match(/^[0-9]{10}$/)) {
+            mobileError.innerHTML = "Please enter valid number"
+            flag = 2
+        }
+        if (passwordValue == "") {
+            passwordError.innerHTML = "This Field is Required"
+            flag = 2
+        } else if (passwordValue.length <= 4) {
+            passwordError.innerHTML = "Please Enter Minimum 4 Characters"
+            flag = 2
+        }
+        if (flag == 1) {
+            submit(nameValue, emailValue, passwordValue, mobileValue)
+        }
+    }
+    function submit(nameValue, emailValue, passwordValue, mobileValue) {
+        fetch('/signup', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: nameValue,
+                email: emailValue,
+                mobile: mobileValue,
+                password: passwordValue
+                
+            })
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.value == "success") {
+                    window.location.href = '/'
+                } else {
+                    var errorExist = document.getElementById('errorExist')
+                    errorExist.innerText = res.value
+                }
+            })
+    }
+</script>

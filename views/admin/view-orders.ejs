@@ -1,0 +1,71 @@
+<div class="col-lg-10 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Order Management</h4>
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Order Id</th>
+                <th>Items Purchased</th>
+                <th>Order Placed On</th>
+                <!-- <th>status</th> -->
+                <th>Action</th>
+  
+              </tr>
+            </thead>
+            <tbody>
+  
+              <!-- <% const getDate=(date)=>{
+                              let orderDate = new Date(date)
+                              let day = orderDate.getDate();
+                              let month = orderDate.getMonth();
+                              let year = orderDate.getFullYear();
+                              return `${isNaN(day)?00:day}-${isNaN(month)?00:month}-${isNaN(year)?0000:year}`
+                              } %> -->
+  
+  
+              <% orders?.forEach((element,index)=> { %>
+              <tr>
+                <td>
+                  <span class="h-4 mb-2"><%-element?.orders?.name %></span>
+                  <br>
+                  ID:<%- element?.userId %>
+                </td>
+                <td>ID : <%-element.orders?._id %></td>
+                <td class="text-center"><%=element?.orders?.productDetails.length %></td>    
+
+                <td>
+
+                  <%= moment(element.orders?.createdAt).format('Do MMMM, YYYY')  %>
+                </td>
+                <!-- <% if (element.orders.status==true){%> 
+                <td  class="text-center"><a  onclick="adminCancelOrder('<%-element?.orders?._id %>','<%- element?.userId %>')"  class="btn btn-outline-danger btn-sm btn-icon-text ti-alert btn-icon-prepend ">Cancel</a></td>
+                <%}else{%>
+                    <td><p  class="text-center text-danger">Cancelled</p></td>
+
+                    <%}%> -->
+                    <td><a href="/admin/order-details/<%-element.orders._id%>" class="btn btn-outline-info btn-sm btn-icon-text ti-info btn-icon-prepend ">Details</a></td> 
+              </tr> 
+              <% })%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+ 

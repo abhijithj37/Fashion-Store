@@ -1,0 +1,31 @@
+<script src="https://cdn.jsdelivr.net/npm/easyinvoice/dist/easyinvoice.min.js"></script>
+
+<div class="form-box mt-5">
+  <div class="form-tab mt-5">
+    <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link  text-success" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Order Placed</a>
+      </li>
+    </ul>
+    <h4 class="my-5">Thank you for purchasing  </h4>
+
+    <h5 class="my-5">Order Placed Successfully</h5>
+    <div class="tab-content" id="tab-content-5">
+      <div class="tab-pane fade show active d-flex justify-content-center" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+        <div class="btn-wrap ">
+          <a href="/orders" class="btn btn-outline-success btn-round ml-4"><span>Goto Orders</span>
+            <i class="icon-long-arrow-right"></i></a>
+          <br>
+        </div><!-- End .btn-wrap -->
+      </div><!-- .End .tab-pane -->
+    </div><!-- End .tab-content -->
+  </div><!-- End .form-tab -->
+</div><!-- End .form-box -->
+
+<script>
+  setTimeout(()=>{
+    window.location.href='/orders'
+  },5000)
+</script>
+
+   

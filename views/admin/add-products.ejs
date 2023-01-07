@@ -1,0 +1,112 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Add Products</h3>
+        <p></p>
+  
+        <br>
+  
+        <form class="forms-sample" method="post" action="/admin/add-product" enctype="multipart/form-data">
+  
+          <div class="row">
+            <div class="form-group col-md-5">
+              <div class="d-flex">
+                <label class="w-25">Name</label>
+                <p id="err" class="text-danger d-flex justify-content-end w-75"></p>
+              </div>
+              <input type="text" class="form-control" id="name" placeholder="name" name="name" required>
+            </div>
+  
+            <div class="form-group col-md-5">
+              <label>Category</label>
+              <select class="form-control " name="category">
+                <% category.forEach((category)=>{ %>
+                <option class="text-dark">
+                  <%-category.name%>
+                </option>
+                <% }) %>
+              </select>
+            </div>
+  
+            <div class="form-group col-md-5">
+              <div class="d-flex">
+                <label for="exampleInputPassword4" class="w-25">Price</label>
+                 
+              </div>
+              <input type="number" class="form-control" id="price" placeholder="Price" name="price" required>
+            </div>
+  
+             
+  
+            <div class="form-group col-md-5">
+              <div class="d-flex">
+                <label for="exampleInputPassword4" class="w-25">Quantity</label>
+                <p id="err" class="text-danger d-flex justify-content-end w-75"></p>
+              </div>
+              <input type="number" class="form-control" id="quantity" placeholder="quantity" name="quantity" required>
+            </div>
+  
+  
+            <div class="form-group col-md-10">
+              <div class="d-flex">
+                <label for="exampleTextarea1" class="w-25">Description</label>
+                <p id="err" class="text-danger d-flex justify-content-end w-75"></p>
+              </div>
+              <textarea class="form-control" id="description" rows="5" name="description"></textarea>
+            </div>
+  
+            <!-- <div class="form-group col-md-10">
+              <img src="" alt="" style="width: 75px; height: 75px;" id="imgView1">
+              <img src="" alt="" style="width: 75px; height: 75px;" id="imgView2">
+              <img src="" alt="" style="width: 75px; height: 75px;" id="imgView3">
+              <img src="" alt="" style="width: 75px; height: 75px;" id="imgView4">
+            </div> -->
+  
+            
+            <!-- <div class="form-group col-md-10">
+              <label for="">Image</label>
+              <input type="file" name="image" id="image" class="form-control" onchange="viewImage1(event)" required>
+            </div>
+  
+            <div class="form-group col-md-10">
+              <label for="">Image</label>
+              <input type="file" name="image" id="image" class="form-control" onchange="viewImage2(event)"  >
+            </div>
+  
+            <div class="form-group col-md-10">
+              <label for="">Image</label>
+              <input type="file" name="image" id="image" class="form-control" onchange="viewImage3(event)"  >
+            </div> -->
+  
+            <div class="form-group col-md-10">
+              <label for="">Image</label>
+              <input type="file" name="image" id="image" class="form-control" multiple >
+            </div>
+  
+  
+            <button type="submit" class="btn btn-primary ml-3 mr-2 col-md-2">Submit</button>
+            
+           </div> 
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="https://cdn.crop.guide/loader/l.js?c=FKHNFL"></script>
+   <script>
+    function viewImage1(event) {
+      document.getElementById('imgView1').src = URL.createObjectURL(event.target.files[0])
+      console.log(event)
+    }
+    function viewImage2(event) {
+      document.getElementById('imgView2').src = URL.createObjectURL(event.target.files[0])
+    }
+    function viewImage3(event) {
+      document.getElementById('imgView3').src = URL.createObjectURL(event.target.files[0])
+    }
+    function viewImage4(event) {
+      document.getElementById('imgView4').src = URL.createObjectURL(event.target.files[0])
+    }
+  </script>
+
+ 
