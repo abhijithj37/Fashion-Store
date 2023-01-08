@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="/stylesheets/plugins/jquery.countdown.css">
     <!-- Main CSS File -->
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/skins/skin-demo-10.css">
+    <link rel="stylesheet" href="/stylesheets/skins/skin-demo-12.css">
     <link rel="stylesheet" href="/stylesheets/demos/demo-12.css">
 
 
@@ -111,64 +111,6 @@
 
 
 <script>
-function addToCart(proId,stock){
-
-$.ajax({
-   url:'/check-cart-quantity/'+proId,
-   method:'get',
-   success:(response)=>{
-    if(response.status){
-        if(stock-response.quantity<=0){
-            toastOutOfStock()
-            
-        }else{
-            $.ajax({
-                url:'/add-to-cart/'+proId,
-                method:'get',
-                success:(response)=>{
-                    if(response.status){
-                        let count=$('#cart-count').html()
-                        count=parseInt(count)+1
-                        $('#cart-count').html(count)
-                        toast()
-                        
-                    }
-                }
-            })
-        }
-    }else{
-            $.ajax({
-                url:'/add-to-cart/'+proId,
-                method:'get',
-                success:(response)=>{
-                    if(response.status){
-                        let count=$('#cart-count').html()
-                        count=parseInt(count)+1
-                        $('#cart-count').html(count)
-                        toast()
-                    }
-                }
-            })
-        }
-   } 
-})
-
-// $.ajax({
-
-//     url:'/add-to-cart/'+proId,
-//     method:'get',
-//     success:(response)=>{
-//         if(response.status){
-//             let count=$('#cart-count').html()
-//             count=parseInt(count)+1
-//             $('#cart-count').html(count)
-//             toast()
-//         }
-//     }
-
-// })
-
-}
 
 
 

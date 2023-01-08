@@ -133,6 +133,8 @@ let totalSales=data[0]?.totalSales;
         userId=req.params.id
         adminHelpers.unblockUser(userId).then((response)=>{
             res.json(response)
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
      
@@ -153,6 +155,8 @@ let totalSales=data[0]?.totalSales;
                   req.session.catErr='Category allready exist'
                 res.redirect('/admin/add-category')
             }
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
 
@@ -160,6 +164,8 @@ let totalSales=data[0]?.totalSales;
 
          productHelpers.getAllCategories().then((category)=>{
             res.render('admin/add-products',{layout,category})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
         
  
@@ -201,22 +207,30 @@ let totalSales=data[0]?.totalSales;
             // });
         
             res.redirect('/admin/products')
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
     products:(req,res)=>{
         productHelpers.getAllProducts().then((products)=>{
             res.render('admin/products',{layout,products})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
     category:(req,res)=>{
         productHelpers.getAllCategories().then((category)=>{
             res.render('admin/category',{layout,category})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
     deleteProduct:(req,res)=>{
         let proId=req.params.id
         productHelpers.deleteProducts(proId).then((response)=>{
             res.json(response)
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
     editProducts:async(req,res)=>{
@@ -224,6 +238,8 @@ let totalSales=data[0]?.totalSales;
         productHelpers.getAllCategories().then((category)=>{
             console.log("edit ppp",products);
             res.render('admin/edit-products',{category,products,layout})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
     editProductsPost:(req,res)=>{
@@ -270,6 +286,8 @@ let totalSales=data[0]?.totalSales;
            
             res.redirect('/admin/products')
 
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
 
@@ -278,6 +296,8 @@ let totalSales=data[0]?.totalSales;
         productHelpers.deleteCategory(id).then((response)=>{
 
             res.json(response)
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
     },
     editCategory:async(req,res)=>{
@@ -285,6 +305,8 @@ let totalSales=data[0]?.totalSales;
         
         productHelpers.getCategoryDetails(req.params.id).then((category)=>{
         res.render('admin/edit-category',{category,layout})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
 
     },
@@ -385,6 +407,8 @@ let totalSales=data[0]?.totalSales;
         
         couponHelpers.showCoupons().then((coupons)=>{
             res.render('admin/show-coupons',{layout,coupons})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
         
        },
@@ -394,6 +418,8 @@ let totalSales=data[0]?.totalSales;
         console.log('params id',couponId);
         couponHelpers.removeCoupon(couponId).then(()=>{
             res.json({status:true})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
        },
       salesReport:async(req,res)=>{
@@ -426,8 +452,8 @@ let totalSales=data[0]?.totalSales;
             res.send(data)
 
         }).catch((error)=>{
-            console.log(error);
-        })
+            res.render('show-error',{error,nav:true,footer:true})
+         })
 
         console.log('proo',req.body);
       },
@@ -473,6 +499,8 @@ let totalSales=data[0]?.totalSales;
             res.send(excelBuffer);
 
 
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
         })
         
       
@@ -480,24 +508,34 @@ let totalSales=data[0]?.totalSales;
 
       },
       offers:async(req,res)=>{
+        try {
+
         let productOffers=await adminHelpers.getProductOffers();
         let categoryOffers=await adminHelpers.getCategoryOffers();
         
         
-        res.render('admin/offers',{layout,productOffers,categoryOffers})
-
+      res.render('admin/offers',{layout,productOffers,categoryOffers})
+    } catch (error) {
+      res.render('show-error',{error,nav:true,footer:true})
+ 
+    }
         
-       },
+    },
 
 
      addOffer:async(req,res)=>{
-
+     try {
+        
+     
      let products=await productHelpers.getAllProducts();
      let categories=await productHelpers.getAllCategories();
         let error=req.session.error
         req.session.error=null;
         res.render('admin/add-offer',{layout,products,categories,error})
-        
+    } catch (error) {
+        res.render('show-error',{error,nav:true,footer:true})
+
+    }
       },
 
       addOfferPost:(req,res)=>{
@@ -512,6 +550,9 @@ let totalSales=data[0]?.totalSales;
                     res.redirect('/admin/add-offer')
                 }
  
+             }).catch((error)=>{
+                res.render('show-error',{error,nav:true,footer:true})
+
              })
         }else{
             adminHelpers.addCategoryOffer(req.body).then((result)=>{
@@ -522,6 +563,9 @@ let totalSales=data[0]?.totalSales;
                     res.redirect('/admin/add-offer')
 
                 }
+             }).catch((error)=>{
+                res.render('show-error',{error,nav:true,footer:true})
+
              })
         }
       },
@@ -532,6 +576,9 @@ let totalSales=data[0]?.totalSales;
 
             console.log('cancelled');
             res.json({status:true})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
+
         })
 
         
@@ -541,6 +588,9 @@ let totalSales=data[0]?.totalSales;
         let catName=req.params.name
         adminHelpers.cancellCategoryOffer(catName).then(()=>{
             res.json({status:true})
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
+
         })
       },
       returnProduct:(req,res)=>{
@@ -555,6 +605,9 @@ let totalSales=data[0]?.totalSales;
                                
              res.json({status:true})
      
+         }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
+
          })
          
      
@@ -568,6 +621,9 @@ let totalSales=data[0]?.totalSales;
 
         productHelpers.changeProductReturnStatus(userId,orderId,prodId,status).then(()=>{
             res.json({status:true})
+        }).catch((error)=>{
+          res.render('show-error',{error,nav:true,footer:true})
+
         })
                  
      },
@@ -581,6 +637,9 @@ let totalSales=data[0]?.totalSales;
 
         res.render('admin/banners',{layout,banners})
 
+
+        }).catch((error)=>{
+           res.render('show-error',{error,nav:true,footer:true})
 
         })
       },
@@ -597,6 +656,9 @@ let totalSales=data[0]?.totalSales;
         bannerHelpers.addBanner(banner).then(()=>{
 
             res.redirect('/admin/banners')
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
+
         })
      },
      editBanner:(req,res)=>{
@@ -604,6 +666,9 @@ let totalSales=data[0]?.totalSales;
         bannerHelpers.getBanner(category).then((banner)=>{
             console.log('eddd',banner,category)
             res.render('admin/edit-banner',{layout,banner})
+
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
 
         })
       },
@@ -619,10 +684,13 @@ let totalSales=data[0]?.totalSales;
 
         bannerHelpers.editBanner(req.body,image,id).then(()=>{
             res.redirect('/admin/banners')
+        }).catch((error)=>{
+            res.render('show-error',{error,nav:true,footer:true})
+
         })
         
       },
-      
+
 
        
 }
