@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const productHelpers = require('../helpers/productHelpers')
 const userHelper=require('../helpers/userHelper')
-// const OTP = require('../config/OTP')
+
 const client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN)
 const db=require('../model/connection')
 const adminHelpers = require('../helpers/adminHelpers')

@@ -8,7 +8,7 @@ const ObjectId = require('mongodb').ObjectId
 // const razorpayKey=require('../config/razorPayKey')
 
 const Razorpay = require('razorpay');
-const { productDetails } = require('../controllers/usercontroller')
+ 
 const { orders } = require('@paypal/checkout-server-sdk')
 
 
