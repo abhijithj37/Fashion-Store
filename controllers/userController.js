@@ -3,8 +3,8 @@ require('dotenv').config()
 
 const productHelpers = require('../helpers/productHelpers')
 const userHelper=require('../helpers/userHelper')
-const OTP = require('../config/OTP')
-const client = require('twilio')(OTP.accountSID, OTP.authToken)
+// const OTP = require('../config/OTP')
+const client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN)
 const db=require('../model/connection')
 const adminHelpers = require('../helpers/adminHelpers')
 const { order } = require('../model/connection')
@@ -123,7 +123,7 @@ postOtpLogin: async(req,res)=>{
         console.log('no user');
         res.send({status:false})
     }else{
-        client.verify.services(OTP.serviceId)
+        client.verify.services(process.env.SERVICE_ID)
         .verifications.create({
             to:`+91${mobile}`,
             channel:'sms',
@@ -142,7 +142,7 @@ postOtpLogin: async(req,res)=>{
 verifyOtp:(req,res)=>{
       const {otp}=req.body
       console.log('ottotpp',req.body)
-    client.verify.services(OTP.serviceId)
+    client.verify.services(process.env.SERVICE_ID)
     .verificationChecks
     .create({
         to:`+91${userNumber}`,

@@ -1,9 +1,11 @@
+require('dotenv').config()
+
 const db = require('../model/connection')
 const bcrypt = require('bcrypt')
 const { response } = require('express')
 const { resolveInclude } = require('ejs')
 const ObjectId = require('mongodb').ObjectId
-const razorpayKey=require('../config/razorPayKey')
+// const razorpayKey=require('../config/razorPayKey')
 
 const Razorpay = require('razorpay');
 const { productDetails } = require('../controllers/usercontroller')
@@ -15,8 +17,8 @@ const { orders } = require('@paypal/checkout-server-sdk')
 
 
 var instance = new Razorpay({
-    key_id: razorpayKey.keyId,
-    key_secret: razorpayKey.secretKey,
+    key_id:process.env.KEY_ID,
+    key_secret:process.env.SECRET_KEY,
 });
 
 
