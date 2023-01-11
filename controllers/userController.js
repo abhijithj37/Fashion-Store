@@ -541,25 +541,28 @@ returnRequest:(req,res)=>{
 },
 
 mensCategory:async(req,res)=>{
+    let user=req.user
     let cartCount= await userHelper.getCartCount(req.user?._id)
     productHelpers.mensProducts().then((products)=>{
-        res.render('user/mens-category',{products,cartCount})
+        res.render('user/mens-category',{products,cartCount,user})
     }).catch((error)=>{
         res.render('show-error',{error,nav:true,footer:true})
     })
 },
 womensCategory:async(req,res)=>{
+    let user=req.user
     let cartCount= await userHelper.getCartCount(req.user?._id)
     productHelpers.womensProducts().then((products)=>{
-        res.render('user/womens-category',{products,cartCount})
+        res.render('user/womens-category',{products,cartCount,user})
     }).catch((error)=>{
         res.render('show-error',{error,nav:true,footer:true})
     })
 },
 kidsCategory:async(req,res)=>{
+    let user=req.user
     let cartCount= await userHelper.getCartCount(req.user?._id)
     productHelpers.kidsProducts().then((products)=>{
-    res.render('user/kids-category',{products,cartCount})
+    res.render('user/kids-category',{products,cartCount,user})
 
     }).catch((error)=>{
       res.render('show-error',{error,nav:true,footer:true})
