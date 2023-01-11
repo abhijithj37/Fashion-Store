@@ -101,7 +101,7 @@
                                     <div class="col-lg-11">
                                       <div class="card card-dashboard">
                                         <div class="card-body">
-                                            <input type="radio" name="addrId" value="<%=elements.addresses._id %>" id="<%=elements.addresses._id %>"  required>
+                                            <input type="radio" name="addrId" value="<%=elements.addresses._id %>" id="<%=elements.addresses._id %>"  required checked>
                                              
                                           <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
                                           <p>
@@ -239,7 +239,132 @@
                             </div><!-- End .summary -->
                         </aside><!-- End .col-lg-3 -->
                     </div><!-- End .row -->
-                    <% } %>
+                    <% }else{%>
+
+
+                      <h3>Please Add an address to continue</h3>
+                      <div class="col-12">
+                        <div class="card card-dashboard">
+                          <div class="card-body">
+                            <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
+                            <p>Add New Addresses Here.<br>
+                             
+                            <button type="button" class="btn btn-outline-primary btn-sm icon-edit" data-toggle="modal" data-target="#addAddress">Add Adresses</button>
+                            </p>
+                          </div><!-- End .card-body -->
+                        </div><!-- End .card-dashboard -->
+                      </div>
+
+
+
+                      <!-- Add address Model -->
+                                     
+                      <div class="modal fade" id="addAddress" role="dialog">
+                        <div class="modal-dialog">
+    
+                          <!--  addd new addrss Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Add New Address</h4>
+                              <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                            </div>
+                            <div class="modal-body">
+    
+                              <div class="col-lg-12 my-5">
+                                <div class="row ">
+                                  <div class="col-12">
+                                    <div class="d-flex">
+                                      <label class="w-40"> Name *</label>
+                                      <p class="text-danger d-flex justify-content-end w-60">
+                                      </p>
+                                    </div>
+                                    <input type="text" class="form-control" id="nameNew" name=" name">
+                                  </div><!-- End .col-12 -->
+    
+                                   
+                                </div><!-- End .row -->
+    
+                                <div>
+                                  <div class="d-flex">
+                                    <label class="w-50">  Address *</label>
+                                    <p class="text-danger d-flex justify-content-end w-50">
+                                    </p>
+                                  </div>
+                                  <input type="text" class="form-control" placeholder="House number,Flat,Building,Apartment" id="houseNew" name="house number">
+                                </div>
+                                <div>
+                                  <p id="err2" class="text-danger"></p>
+                                  <input type="text" class="form-control" placeholder="Area , street ,sector etc ..." id="streetNew" name="street">
+                                </div>
+    
+                                <div class="row">
+                                  <div class="col-12">
+                                    <div class="d-flex">
+                                      <label class="w-50">Town / City *</label>
+                                      <p class="text-danger d-flex justify-content-end w-50">
+                                      </p>
+                                    </div>
+                                    <input type="text" class="form-control" id="cityNew" name="city">
+                                  </div><!-- End .col-12 -->
+    
+                                  <div class="col-12">
+                                    <div class="d-flex">
+                                      <label class="w-50">State *</label>
+                                      <p class="text-danger d-flex justify-content-end w-50">
+                                      </p>
+                                    </div>
+                                    <select class="form-control " name="category" id="stateNew">
+    
+                                       <option class="text-dark">
+                                          kerala
+                                       </option>
+                              
+                                    </select>
+                                  </div><!-- End .col-12 -->
+                                </div><!-- End .row -->
+                                <div class="row">
+                                  <div class="col-12">
+                                    <div class="d-flex">
+                                      <label class="w-50">Pincode/ZIP*</label>
+                                      <p class="text-danger d-flex justify-content-end w-50">
+                                      </p>
+                                    </div>
+                                    <input type="text" class="form-control" id="pincodeNew" name="pincode">
+                                  </div><!-- End .col-12 -->
+                                  <div class="col-12">
+                                    <div class="d-flex">
+                                      <label class="w-50">Phone *</label>
+                                      <p class="text-danger d-flex justify-content-end w-50">
+                                      </p>
+                                    </div>
+                                    <input type="tel" class="form-control" id="mobileNew" name="mobile">
+                                  </div><!-- End .col-12 -->
+                                </div><!-- End .row -->
+                                <div class="mb-5">
+                                  <div class="d-flex">
+                                    <label class="w-50">Email address *</label>
+                                    <p class="text-danger d-flex justify-content-end w-50">
+                                    </p>
+                                  </div>
+                                  <input type="email" class="form-control" id="emailNew" name="email">
+                                </div>
+                                <input type="text" id="_id" hidden>
+                                <button type="button" onclick="addAddress(this)" class="btn btn-outline-primary-2 mx-auto">
+                                  <span>SAVE CHANGES</span>
+                                  <i class="icon-long-arrow-right"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    <%}%>
+
+
                 </form>
             </div><!-- End .container -->
         </div><!-- End .checkout -->
@@ -450,6 +575,151 @@ function paypalPayment(total){
       }
     }).render('#paypal-button-container');
   
+}
+
+function addAddress(button) {
+
+const name = button.parentElement.querySelector('#nameNew')
+const nameValue = name?.value.trim()
+const nameErr = name.parentElement.querySelector('p')
+nameErr.innerText = ""
+
+
+
+
+
+const address = button.parentElement.querySelector('#houseNew')
+const addressValue = address?.value.trim()
+const addressErr = address.parentElement.querySelector('p')
+addressErr.innerText = ''
+
+
+const street = button.parentElement.querySelector('#streetNew')
+const streetValue = street?.value.trim()
+const streetErr = street.parentElement.querySelector('p')
+streetErr.innerText = ''
+
+
+const city = button.parentElement.querySelector('#cityNew')
+const cityValue = city?.value.trim()
+const cityErr = city.parentElement.querySelector('p')
+cityErr.innerText = ""
+
+
+const stateValue = button.parentElement.querySelector('#stateNew').value
+const pincode = button.parentElement.querySelector('#pincodeNew')
+const pincodeValue = pincode?.value.trim()
+const pincodeErr = pincode.parentElement.querySelector('p')
+pincodeErr.innerText = ""
+
+
+const phone = button.parentElement.querySelector('#mobileNew')
+const phoneValue = phone?.value.trim()
+const phoneErr = phone.parentElement.querySelector('p')
+
+
+const email = button.parentElement.querySelector('#emailNew')
+const emailValue = email?.value.trim()
+const emailErr = email.parentElement.querySelector('p')
+emailErr.innerText = ""
+
+
+
+let flag = 1
+if (nameValue == "") {
+  nameErr.innerText = "This field is required"
+  let flag = 2
+}
+
+ 
+
+if (addressValue == "") {
+  addressErr.innerText = "This field is required"
+  flag = 2
+
+} else if (addressValue.length <= 4) {
+  addressErr.innerText = "Minimum 5 character is required "
+  flag = 2
+}
+
+if (streetValue == '') {
+  streetErr.innerText = "This field is required"
+  flag = 2
+
+} else if (streetValue.length <= 4) {
+  streetErr.innerText = "Minimum 5 character is required "
+  flag = 2
+}
+
+if (cityValue == "") {
+  cityErr.innerText = "This field is required"
+  flag = 2
+}
+
+if (pincodeValue == '') {
+  pincodeErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!pincodeValue.match(/^[0-9]{6}$/)) {
+  pincodeErr.innerText = "Please Enter a valid pincode"
+  flag = 2
+}
+
+if (phoneValue == "") {
+  phoneErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!phoneValue.match(/^[0-9]{10}$/)) {
+  phoneErr.innerText = "Please enter a valid phone number"
+  flag = 2
+}
+
+if (emailValue == "") {
+  emailErr.innerText = "This field is required"
+  flag = 2
+
+} else if (!emailValue.match(/^[A-Za-z0-9_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/)) {
+  emailErr.innerText = "Please enter a valid Email address"
+
+}
+
+
+if (flag == 1) {
+  $.ajax({
+    url: '/add-address',
+    method: 'POST',
+    data: {
+
+
+      name: nameValue,
+      houseNo: addressValue,
+      street: streetValue,
+      city: cityValue,
+      state: stateValue,
+      pincode: pincodeValue,
+      mobile: phoneValue,
+      email: emailValue,
+
+    },
+    success: (response) => {
+
+        if (response.status) {
+        Swal.fire(
+          'Saved!',
+          'Your address has been saved.',
+          'success'
+        )
+        location.reload()
+      } else {
+        Swal.fire(
+          '',
+          'Some thing went wrong.',
+          'warning'
+        )
+      }
+    }
+  })
+}
 }
 
 function redeemCoupon(){

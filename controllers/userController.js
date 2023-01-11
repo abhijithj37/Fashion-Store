@@ -540,23 +540,26 @@ returnRequest:(req,res)=>{
     })
 },
 
-mensCategory:(req,res)=>{
+mensCategory:async(req,res)=>{
+    let cartCount= await userHelper.getCartCount(req.user?._id)
     productHelpers.mensProducts().then((products)=>{
-        res.render('user/mens-category',{products})
+        res.render('user/mens-category',{products,cartCount})
     }).catch((error)=>{
         res.render('show-error',{error,nav:true,footer:true})
     })
 },
-womensCategory:(req,res)=>{
+womensCategory:async(req,res)=>{
+    let cartCount= await userHelper.getCartCount(req.user?._id)
     productHelpers.womensProducts().then((products)=>{
-        res.render('user/womens-category',{products})
+        res.render('user/womens-category',{products,cartCount})
     }).catch((error)=>{
         res.render('show-error',{error,nav:true,footer:true})
     })
 },
-kidsCategory:(req,res)=>{
+kidsCategory:async(req,res)=>{
+    let cartCount= await userHelper.getCartCount(req.user?._id)
     productHelpers.kidsProducts().then((products)=>{
-    res.render('user/kids-category',{products})
+    res.render('user/kids-category',{products,cartCount})
 
     }).catch((error)=>{
       res.render('show-error',{error,nav:true,footer:true})

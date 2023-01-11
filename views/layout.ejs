@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Fashionbytes</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -111,6 +111,49 @@
 
 
 <script>
+
+
+function addToCart(proId,stock){
+
+$.ajax({
+   url:'/check-cart-quantity/'+proId,
+   method:'get',
+   success:(response)=>{
+    if(response.status){
+        if(stock-response.quantity<=0){
+            toastOutOfStock()
+            
+        }else{
+            $.ajax({
+                url:'/add-to-cart/'+proId,
+                method:'get',
+                success:(response)=>{
+                    if(response.status){
+                        let count=$('#cart-count').html()
+                        count=parseInt(count)+1
+                        $('#cart-count').html(count)
+                        toast()
+                    }
+                }
+            })
+        }
+    }else{
+            $.ajax({
+                url:'/add-to-cart/'+proId,
+                method:'get',
+                success:(response)=>{
+                    if(response.status){
+                        let count=$('#cart-count').html()
+                        count=parseInt(count)+1
+                        $('#cart-count').html(count)
+                        toast()
+                    }
+                }
+            })
+        }
+   } 
+})
+    }
 
 
 
