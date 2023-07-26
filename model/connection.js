@@ -18,14 +18,14 @@ const usersSchema=new mongoose.Schema({
     password:String,
     mobile:String,
     address:[{
-        name: String,
-        houseNo: String,
-        street: String,
-        city: String,
-        state: String,
-        pincode: String,
-        mobile: String,
-        email: String,
+     name:String,
+     houseNo:String,
+     street:String,
+     city:String,
+     state:String,
+     pincode:String,
+     mobile:String,
+     email:String,
         
         
       
